@@ -1,0 +1,22 @@
+{
+  "name": "cli",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "dev": "echo 'Add dev script here'",
+    "build": "unbuild",
+    "build:stub": "unbuild --stub",
+    "evo": "node ./bin/evo.mjs",
+    "test": "echo 'Add test script here'",
+    "lint": "echo 'Add lint script here'"
+  },
+  "dependencies": {
+    "citty": "^0.1.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.4",
+    "consola": "^3.2.3",
+    "unbuild": "^2.0.0"
+  }
+}
