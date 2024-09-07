@@ -13,16 +13,22 @@
       }
     },
     "./config": {
-      "types": "./dist/config/index.d.ts",
-      "import": "./dist/config/index.mjs"
+      "import": {
+        "types": "./dist/config/index.d.ts",
+        "default": "./dist/config/index.mjs"
+      }
     },
     "./meta": {
-      "types": "./dist/meta/index.d.ts",
-      "import": "./dist/meta/index.mjs"
+      "import": {
+        "types": "./dist/meta/index.d.ts",
+        "default": "./dist/meta/index.mjs"
+      }
     },
     "./types": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/types/index.mjs"
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/types/index.mjs"
+      }
     },
     "./package.json": "./package.json"
   },
