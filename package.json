@@ -1,19 +1,73 @@
 {
   "name": "evolution-design",
-  "private": true,
-  "scripts": {
-    "build": "turbo build",
-    "dev": "turbo dev",
-    "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
-  },
-  "devDependencies": {
-    "prettier": "^3.2.5",
-    "turbo": "^2.1.1",
-    "typescript": "^5.4.5"
-  },
+  "type": "module",
+  "version": "0.0.0",
   "packageManager": "pnpm@8.15.6",
+  "description": "",
+  "license": "MIT",
+  "exports": {
+    "./cli": {
+      "import": {
+        "types": "./dist/cli/index.d.ts",
+        "default": "./dist/cli/index.mjs"
+      }
+    },
+    "./config": {
+      "import": {
+        "types": "./dist/config/index.d.ts",
+        "default": "./dist/config/index.mjs"
+      }
+    },
+    "./meta": {
+      "import": {
+        "types": "./dist/meta/index.d.ts",
+        "default": "./dist/meta/index.mjs"
+      }
+    },
+    "./types": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/types/index.mjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "evolution-design": "./dist/cli/index.mjs",
+    "evo": "./dist/cli/index.mjs"
+  },
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=18"
+  },
+  "scripts": {
+    "build": "unbuild",
+    "build:stub": "unbuild --stub",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "evo": "tsx ./src/cli/index.ts"
+  },
+  "dependencies": {
+    "citty": "^0.1.6",
+    "consola": "^3.2.3"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.3.2",
+    "@types/node": "^22.5.4",
+    "eslint": "^9.10.0",
+    "lint-staged": "^15.2.10",
+    "pnpm": "^9.9.0",
+    "simple-git-hooks": "^2.11.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4",
+    "unbuild": "2.0.0"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "pnpm lint:fix"
   }
 }
