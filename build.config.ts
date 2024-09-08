@@ -9,11 +9,13 @@ export const subpaths = [
   'meta',
   'config',
   'types',
+  'linter',
 ]
 
 export default defineBuildConfig({
   declaration: true,
   name: 'evolution-design',
+  failOnWarn: false,
   entries: [
     // CLI
     { input: 'src/cli/index.ts' },
