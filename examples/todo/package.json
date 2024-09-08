@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint:architect:watch": "evo lint --watch",
+    "lint:architect": "evo lint"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.1",

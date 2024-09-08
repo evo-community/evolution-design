@@ -4,9 +4,18 @@
     "moduleDetection": "force",
     "module": "preserve",
     "paths": {
-      "evolution-design/cli": ["./src/cli"],
-      "evolution-design/meta": ["./src/meta"],
-      "evolution-design/types": ["./src/types"]
+      "evolution-design/cli": [
+        "./src/cli"
+      ],
+      "evolution-design/meta": [
+        "./src/meta"
+      ],
+      "evolution-design/types": [
+        "./src/types"
+      ],
+      "evolution-design/linter": [
+        "./src/linter"
+      ]
     },
     "resolveJsonModule": true,
     "allowJs": true,
@@ -21,6 +30,10 @@
     "verbatimModuleSyntax": true,
     "skipLibCheck": true
   },
-  "include": ["src"],
-  "exclude": ["dist"]
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "dist"
+  ]
 }
