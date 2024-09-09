@@ -1,5 +1,3 @@
-import type { ParamHTMLAttributes } from 'react'
-
 export type Path = string
 
 export type Node = File | Folder
@@ -72,8 +70,9 @@ export interface Abstraction {
 
 export interface AbstractionInstance {
   abstraction: Abstraction
+  children: AbstractionInstance[]
   path: Path
-  abstractionsPath: AbstractionsPath
+  childNodes: Path[]
 }
 
 export interface AbstractionPathSection { abstraction: Abstraction, path: Path }

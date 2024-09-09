@@ -16,6 +16,13 @@ export class Vfs {
     return this.tree
   }
 
+  flatFolders() {
+    const folrders = (folder: Folder): Folder[] => {
+      return folder.children.filter(child => child.type === 'folder').flatMap(child => folrders(child))
+    }
+    return folrders(this.tree)
+  }
+
   addFile(newFilePath: Path) {
     this.tree = produce(this.tree, (draft) => {
       const pathSegments = relative(this.rootPath, newFilePath).split(sep)
