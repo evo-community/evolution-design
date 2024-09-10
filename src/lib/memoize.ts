@@ -1,5 +1,5 @@
 export function memoize<T extends (arg: any) => any>(fn: T): T {
-  const cache = new WeakMap()
+  const cache = new Map()
   return function (this: any, arg: any) {
     if (cache.has(arg)) {
       return cache.get(arg)

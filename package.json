@@ -50,10 +50,12 @@
     "evo": "tsx ./src/cli/index.ts"
   },
   "dependencies": {
+    "chalk": "^5.3.0",
     "chokidar-cli": "^3.0.0",
     "citty": "^0.1.6",
     "consola": "^3.2.3",
     "cosmiconfig": "^9.0.0",
+    "figures": "^6.1.0",
     "globby": "^14.0.2",
     "immer": "^10.1.1",
     "install": "^0.13.0",
@@ -61,6 +63,7 @@
     "npm": "^10.8.3",
     "prexit": "^2.3.0",
     "rxjs": "^7.8.1",
+    "terminal-link": "^3.0.0",
     "zod": "^3.23.8",
     "zod-validation-error": "^3.3.1"
   },

@@ -1,14 +1,15 @@
 /* eslint-disable no-console */
 import { spawn } from 'node:child_process'
-import { dirname, relative, resolve } from 'node:path'
+import { dirname, resolve } from 'node:path'
 import process from 'node:process'
 import { defineCommand } from 'citty'
 import { loadConfig } from 'evolution-design/config'
 import { linter } from 'evolution-design/linter'
 import prexit from 'prexit'
-import { from, map, switchMap } from 'rxjs'
-import { z, ZodError } from 'zod'
+import { from } from 'rxjs'
+import { ZodError } from 'zod'
 import { fromError } from 'zod-validation-error'
+import { reportPretty } from '../../linter/pretty-reporter'
 
 export default defineCommand({
   meta: {
@@ -31,15 +32,15 @@ export default defineCommand({
 
       const fullPath = resolve(dirname(configPath), config.baseUrl ?? './')
 
-      const results$ = watch ? linter.watch(fullPath) : from(linter.run(fullPath))
+      const results$ = watch ? linter.watch(fullPath, config.root) : from(linter.run(fullPath, config.root))
 
       const subscription = results$.subscribe((result) => {
         if (watch) {
-          // console.clear()
-          console.log(result.tree)
+          console.clear()
+          reportPretty(result, process.cwd())
         }
         else {
-          console.log(result.tree)
+          reportPretty(result, process.cwd())
           process.exit(0)
         }
       })

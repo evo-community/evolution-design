@@ -2,9 +2,10 @@ import { join, sep } from 'node:path'
 import chokidar from 'chokidar'
 import { type GlobbyFilterFunction, isGitIgnored } from 'globby'
 import { filter, firstValueFrom, from, Observable, switchMap } from 'rxjs'
+import type { VfsNode } from 'evolution-design/types'
 import { Vfs } from './vfs'
 
-export interface VfsEvents { type: 'change' | 'add' | 'unlink' | 'ready', vfs: Vfs }
+export interface VfsEvents { type: 'change' | 'add' | 'unlink' | 'ready', rootNode: VfsNode }
 export class VfsFactory {
   static watch(path: string) {
     const vfs = new Vfs(path)
@@ -28,20 +29,20 @@ export class VfsFactory {
 
       watcher.on('add', async (relativePath) => {
         vfs.addFile(join(path, relativePath))
-        observer.next({ type: 'add', vfs })
+        observer.next({ type: 'add', rootNode: vfs.root })
       })
 
       watcher.on('change', async () => {
-        observer.next({ type: 'change', vfs })
+        observer.next({ type: 'change', rootNode: vfs.root })
       })
 
       watcher.on('unlink', async (relativePath) => {
         vfs.removeFile(join(path, relativePath))
-        observer.next({ type: 'unlink', vfs })
+        observer.next({ type: 'unlink', rootNode: vfs.root })
       })
 
       watcher.on('ready', () => {
-        observer.next({ type: 'ready', vfs })
+        observer.next({ type: 'ready', rootNode: vfs.root })
       })
 
       return () => {
@@ -51,10 +52,10 @@ export class VfsFactory {
   }
 
   /** Scan a folder once without watching and return its virtual file system. */
-  static async create(path: string): Promise<Vfs> {
-    const vfs$ = await VfsFactory.watch(path)
+  static async create(path: string): Promise<VfsNode> {
+    const vfs$ = VfsFactory.watch(path)
 
     const event = await firstValueFrom(vfs$.pipe(filter(e => e.type === 'ready')))
-    return event.vfs
+    return event.rootNode
   }
 }

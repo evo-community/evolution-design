@@ -4,6 +4,7 @@ import {
   abstraction,
   defineConfig,
   importsDirection,
+  noUnabstractionFiles,
   publicAbstraction,
 } from 'evolution-design/dist/config'
 import type {
@@ -56,35 +57,33 @@ function feature() {
     rules: [
       importsDirection(['entry', 'ui', 'vm', 'model', 'other']),
       publicAbstraction('entry'),
+      noUnabstractionFiles(),
     ],
   })
 }
 
-function app() {
-  return abstraction('app')
-}
+const app = abstraction('app')
 
-function features() {
-  return layer({
-    name: 'features',
-    child: feature(),
-  })
-}
+const features = layer({
+  name: 'features',
+  child: feature(),
+})
 
-function shared() {
-  return abstraction('shared')
-}
+const shared = abstraction('shared')
 
 // Пример реализации слоёв FSD
 function root() {
   return abstraction({ name: 'fsdApp', children: {
-    './app': app(),
-    './features': features(),
-    './shared': shared(),
-  }, rules: [importsDirection(['app', 'features', 'shared'])] })
+    app,
+    features,
+    shared,
+  }, rules: [
+    importsDirection(['app', 'features', 'shared']),
+    noUnabstractionFiles(),
+  ] })
 }
 
 export default defineConfig({
   root: root(),
-  baseUrl: './src/app',
+  baseUrl: './src',
 })

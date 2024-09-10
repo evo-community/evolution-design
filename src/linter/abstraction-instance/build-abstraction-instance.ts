@@ -1,10 +1,10 @@
 import { relative } from 'node:path'
 import { minimatch } from 'minimatch'
-import type { Abstraction, AbstractionInstance, Node, Path } from 'evolution-design/types'
+import type { Abstraction, AbstractionInstance, Path, VfsNode } from 'evolution-design/types'
 
 export function buildAbstractionInstance(
   abstraction: Abstraction,
-  node: Node,
+  node: VfsNode,
 ): AbstractionInstance {
   if (node.type === 'file') {
     return {
@@ -19,7 +19,7 @@ export function buildAbstractionInstance(
   const children: Record<Path, AbstractionInstance> = {}
 
   for (const [pattern, childAbstraction] of Object.entries(abstraction.children)) {
-    const nodesStack: Node[] = [node]
+    const nodesStack: VfsNode[] = [node]
     while (nodesStack.length) {
       const currentNode = nodesStack.pop()!
       // Если путь соответствует паттерну. То записываем или **перезаписываем** инстранс абстракции
@@ -43,7 +43,7 @@ export function buildAbstractionInstance(
 
   // Получаем все ноды, которые не являются абстракциями
   const childNodes: Path[] = []
-  const childrenNodesStack: Node[] = [node]
+  const childrenNodesStack: VfsNode[] = [node]
 
   while (childrenNodesStack.length) {
     const currentNode = childrenNodesStack.pop()!
