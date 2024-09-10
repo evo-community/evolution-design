@@ -1,91 +1,47 @@
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs'
+import type { Abstraction, AbstractionInstance, Rule, RuleContext } from 'evolution-design/types'
+import { buildAbstractionInstance } from './abstraction-instance/build-abstraction-instance'
 import { VfsFactory } from './vfs/vfs-factory'
-import type { Vfs } from './vfs'
+import type { AugmentedDiagnostic } from './pretty-reporter'
 
-/*
-import { combine, createEffect, sample } from 'effector'
-import { debounce, not } from 'patronum'
-import type { AugmentedDiagnostic } from '@steiger/pretty-reporter'
-import type { Folder, Rule, Severity } from '@steiger/types'
-
-import { createWatcher, scan } from './features/transfer-fs-to-vfs'
-import { $config, $rules } from './models/config'
-import { defer } from './shared/defer'
-
-function getRuleDescriptionUrl(ruleName: string) {
-  return new URL(`https://github.com/feature-sliced/steiger/tree/master/packages/steiger-plugin-fsd/src/${ruleName}`)
-}
-
-type Config = typeof $config
-type SeverityMap = Record<string, Exclude<Severity, 'off'>>
-
-function getSeverity(value: Severity | [Severity, Record<string, unknown>]): Severity {
-  return Array.isArray(value) ? value[0] : value
-}
-
-function isEnabled([, value]: [string, Severity | [Severity, Record<string, unknown>]]): boolean {
-  return getSeverity(value) !== 'off'
-}
-
-const $enabledRules = combine($config, $rules, (config, rules) => {
-  const ruleConfigs = config?.rules
-
-  if (ruleConfigs === undefined) {
-    return rules
+async function runRules({ root, instance }: RuleContext) {
+  const ruleDiagnostics = (currentInstance: AbstractionInstance) => async (rule: Rule) => {
+    if (rule.severity === 'off') {
+      return []
+    }
+    const { diagnostics } = await rule.check({ root, instance: currentInstance })
+    return diagnostics.map<AugmentedDiagnostic>(d => ({ ...d, rule }))
   }
 
-  return rules.filter(
-    rule => !(rule.name in ruleConfigs) || ruleConfigs[rule.name as keyof typeof ruleConfigs] !== 'off',
-  )
-})
+  const runAbstractionRules = (currentInstance: AbstractionInstance): Promise<AugmentedDiagnostic[]>[] => {
+    return currentInstance.abstraction.rules.map(ruleDiagnostics(currentInstance)).concat(
+      ...currentInstance.children.flatMap(runAbstractionRules),
+    )
+  }
 
-const $severities = $config.map(
-  config =>
-    Object.fromEntries(
-      Object.entries(config?.rules ?? {})
-        .filter(isEnabled)
-        .map(([ruleName, severityOrTuple]) => [ruleName, getSeverity(severityOrTuple)]),
-    ) as SeverityMap,
-)
-
-const $ruleOptions = $config.map(
-  config =>
-    Object.fromEntries(
-      Object.entries(config?.rules ?? {})
-        .filter(isEnabled)
-        .map(([ruleName, severityOrTuple]) => [ruleName, Array.isArray(severityOrTuple) ? severityOrTuple[1] : {}]),
-    ) as Record<string, Record<string, unknown>>,
-)
-
-async function runRules({ vfs, rules, severities }: { vfs: Folder, rules: Array<Rule>, severities: SeverityMap }) {
-  const ruleResults = await Promise.all(
-    rules.map((rule) => {
-      const optionsForCurrentRule = $ruleOptions.getState()[rule.name]
-
-      return Promise.resolve(rule.check(vfs, optionsForCurrentRule)).then(({ diagnostics }) =>
-        diagnostics.map<AugmentedDiagnostic>(d => ({
-          ...d,
-          ruleName: rule.name,
-          getRuleDescriptionUrl,
-          severity: severities[rule.name],
-        })),
-      )
-    }),
-  )
-  return ruleResults.flat()
-}
-*/
-
-async function runRules(vfs: Vfs) {
-  return { result: true, tree: vfs.root }
+  return await Promise.all(runAbstractionRules(instance)).then(r => r.flat())
 }
 
 export const linter = {
-  run: (path: string) => VfsFactory.create(path).then(vfs => runRules(vfs)),
-  watch: (path: string) => {
-    const vfs$ = VfsFactory.watch(path)
+  run: (path: string, abstraction: Abstraction) =>
+    VfsFactory
+      .create(path)
+      .then(root => runRules({
+        root,
+        instance: buildAbstractionInstance(abstraction, root),
+      })),
+  watch: (path: string, abstraction: Abstraction) => {
+    const vfsEvents$ = VfsFactory.watch(path)
 
-    const result$ = vfs$.pipe(debounceTime(500), switchMap(({ vfs }) => runRules(vfs)), distinctUntilChanged())
+    const result$ = vfsEvents$
+      .pipe(
+        debounceTime(500),
+        switchMap(({ rootNode }) => runRules({
+          root: rootNode,
+          instance: buildAbstractionInstance(abstraction, rootNode),
+        })),
+        distinctUntilChanged(),
+      )
 
     return result$
   },

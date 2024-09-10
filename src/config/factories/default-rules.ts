@@ -1,4 +1,5 @@
 import type { Rule } from 'evolution-design/types'
+import { nodesRecord } from '../../lib/fs'
 
 // TODO: Move default rules to separate folder
 
@@ -6,6 +7,7 @@ import type { Rule } from 'evolution-design/types'
 export function indexPublicApi(): Rule {
   return {
     name: 'index-public-api',
+    severity: 'warn',
     check() {
       return {
         diagnostics: [],
@@ -13,10 +15,35 @@ export function indexPublicApi(): Rule {
     },
   }
 }
+
+export function noUnabstractionFiles(): Rule {
+  return {
+    name: 'no-unabstraction-files',
+    severity: 'warn',
+    check({ instance, root }) {
+      const record = nodesRecord(root)
+      const files = instance.childNodes.filter(node => record[node]?.type === 'file')
+      if (files.length > 0) {
+        return {
+          diagnostics: files.map(node => ({
+            message: ` 'Unabstraction files are not allowed in ${instance.abstraction.name}'`,
+            location: { path: node },
+          })),
+        }
+      }
+
+      return {
+        diagnostics: [],
+      }
+    },
+  }
+}
+
 // eslint-disable-next-line unused-imports/no-unused-vars
 export function publicAbstraction(name: string): Rule {
   return {
     name: 'public-abstraction',
+    severity: 'warn',
     check() {
       return {
         diagnostics: [],
@@ -27,6 +54,7 @@ export function publicAbstraction(name: string): Rule {
 export function restrictCrossImports(): Rule {
   return {
     name: 'restrict-cross-imports',
+    severity: 'warn',
     check() {
       return {
         diagnostics: [],
@@ -38,6 +66,7 @@ export function restrictCrossImports(): Rule {
 export function importsDirection(order: string[]): Rule {
   return {
     name: 'imports-direction',
+    severity: 'warn',
     check() {
       return {
         diagnostics: [],

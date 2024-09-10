@@ -1,35 +1,48 @@
-import type { File, Folder, Node } from 'evolution-design/types'
+import type { Path, VfsFile, VfsFolder, VfsNode } from 'evolution-design/types'
 import { memoize } from './memoize'
 
+export const nodesRecord = memoize((folder: VfsNode): Record<Path, VfsNode> => {
+  if (folder.type === 'file') {
+    return { [folder.path]: folder }
+  }
+
+  return folder.children.reduce((acc, child) => {
+    if (child.type === 'file') {
+      return { ...acc, [child.path]: child }
+    }
+
+    return { ...acc, [child.path]: child, ...nodesRecord(child) }
+  }, {} as Record<Path, VfsNode>)
+})
 /**
  * Turn a tree folder structure into a flat array of files.
  */
-export const flattenFolderNodes = memoize((folder: Folder): Node[] => {
-  return folder.children.reduce((acc, child): Node[] => {
+export const flattenFolderNodes = memoize((folder: VfsFolder): VfsNode[] => {
+  return folder.children.reduce((acc, child): VfsNode[] => {
     if (child.type === 'file') {
       return [...acc, child]
     }
 
     return [...acc, child, ...flattenFolderNodes(child)]
-  }, [] as Node[])
+  }, [] as VfsNode[])
 })
 
 /**
  * Turn a tree folder structure into a flat array of files.
  */
-export const flattenFolderFiles = memoize((folder: Folder): File[] => {
+export const flattenFolderFiles = memoize((folder: VfsFolder): VfsFile[] => {
   return folder.children.reduce((acc, child) => {
     if (child.type === 'file') {
       return [...acc, child]
     }
 
     return [...acc, ...flattenFolderFiles(child)]
-  }, [] as File[])
+  }, [] as VfsFile[])
 })
 
-export function copyFsEntity<T extends Folder | File>(fsEntity: T, deep: boolean = false) {
+export function copyFsEntity<T extends VfsFolder | VfsFile>(fsEntity: T, deep: boolean = false) {
   if (fsEntity.type === 'folder') {
-    const newChildren: Array<Folder | File> = deep
+    const newChildren: Array<VfsFolder | VfsFile> = deep
       ? fsEntity.children.map(child => (child.type === 'folder' ? copyFsEntity(child, true) : child))
       : []
 

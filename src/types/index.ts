@@ -1,18 +1,16 @@
-import type { ParamHTMLAttributes } from 'react'
-
 export type Path = string
 
-export type Node = File | Folder
+export type VfsNode = VfsFile | VfsFolder
 
-export interface File {
+export interface VfsFile {
   type: 'file'
   path: Path
 }
 
-export interface Folder {
+export interface VfsFolder {
   type: 'folder'
   path: Path
-  children: Array<Node>
+  children: Array<VfsNode>
 }
 
 export interface RuleResult {
@@ -57,9 +55,16 @@ export type Fix =
 
 export type Severity = 'off' | 'warn' | 'error'
 
+export interface RuleContext {
+  root: VfsNode
+  instance: AbstractionInstance
+}
+
 export interface Rule {
   name: string
-  check: (root: Folder) => RuleResult | Promise<RuleResult>
+  severity: Severity
+  descriptionUrl?: string
+  check: (context: RuleContext) => RuleResult | Promise<RuleResult>
 }
 
 export type AbstractionName = string
@@ -72,8 +77,9 @@ export interface Abstraction {
 
 export interface AbstractionInstance {
   abstraction: Abstraction
+  children: AbstractionInstance[]
   path: Path
-  abstractionsPath: AbstractionsPath
+  childNodes: Path[]
 }
 
 export interface AbstractionPathSection { abstraction: Abstraction, path: Path }

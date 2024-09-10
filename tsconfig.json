@@ -15,6 +15,9 @@
       ],
       "evolution-design/linter": [
         "./src/linter"
+      ],
+      "evolution-design/config": [
+        "./src/config"
       ]
     },
     "resolveJsonModule": true,

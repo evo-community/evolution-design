@@ -1,9 +1,9 @@
 import { basename, join, relative, sep } from 'node:path'
 import { produce } from 'immer'
-import type { Folder, Path } from 'evolution-design/types'
+import type { Path, VfsFolder } from 'evolution-design/types'
 
 export class Vfs {
-  private tree: Folder
+  private tree: VfsFolder
   constructor(private rootPath: string) {
     this.tree = {
       type: 'folder',
@@ -16,6 +16,13 @@ export class Vfs {
     return this.tree
   }
 
+  flatFolders() {
+    const folrders = (folder: VfsFolder): VfsFolder[] => {
+      return folder.children.filter(child => child.type === 'folder').flatMap(child => folrders(child))
+    }
+    return folrders(this.tree)
+  }
+
   addFile(newFilePath: Path) {
     this.tree = produce(this.tree, (draft) => {
       const pathSegments = relative(this.rootPath, newFilePath).split(sep)
@@ -24,7 +31,7 @@ export class Vfs {
       for (const pathSegment of pathSegments.slice(0, -1)) {
         const existingChild = currentFolder.children.find(
           child => child.type === 'folder' && basename(child.path) === pathSegment,
-        ) as Folder | undefined
+        ) as VfsFolder | undefined
 
         if (existingChild === undefined) {
           currentFolder.children.push({
@@ -32,7 +39,7 @@ export class Vfs {
             path: join(currentFolder.path, pathSegment),
             children: [],
           })
-          currentFolder = currentFolder.children[currentFolder.children.length - 1] as Folder
+          currentFolder = currentFolder.children[currentFolder.children.length - 1] as VfsFolder
         }
         else {
           currentFolder = existingChild
@@ -53,7 +60,7 @@ export class Vfs {
       for (const pathSegment of pathSegments.slice(0, -1)) {
         const existingChild = currentFolder.children.find(
           child => child.type === 'folder' && basename(child.path) === pathSegment,
-        ) as Folder | undefined
+        ) as VfsFolder | undefined
 
         if (existingChild === undefined) {
           throw new Error(`Folder ${pathSegment} not found`)
