@@ -1,10 +1,15 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "moduleResolution": "NodeNext",
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "evolution-design": [
+        "../../src/core/index.ts"
+      ],
+      "evolution-design/rules": [
+        "../../src/rules/index.ts"
       ]
     }
   },
@@ -15,6 +20,5 @@
     {
       "path": "./tsconfig.node.json"
     }
-  ],
-  "files": []
+  ]
 }

@@ -1,7 +1,4 @@
-import type { Rule } from 'evolution-design/types'
-import { nodesRecord } from '../../lib/fs'
-
-// TODO: Move default rules to separate folder
+import { getNodesRecord, type Rule } from 'evolution-design/core'
 
 // Rules
 export function indexPublicApi(): Rule {
@@ -21,7 +18,7 @@ export function noUnabstractionFiles(): Rule {
     name: 'no-unabstraction-files',
     severity: 'warn',
     check({ instance, root }) {
-      const record = nodesRecord(root)
+      const record = getNodesRecord(root)
       const files = instance.childNodes.filter(node => record[node]?.type === 'file')
       if (files.length > 0) {
         return {

@@ -1,4 +1,4 @@
-import type { Diagnostic, Rule } from 'evolution-design/types'
+import type { Diagnostic, Rule } from 'evolution-design/core'
 
 export interface AugmentedDiagnostic extends Diagnostic {
   rule: Rule

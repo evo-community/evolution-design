@@ -1,9 +1,10 @@
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
-import type { AbstractionInstance } from 'evolution-design/types'
-import { abstraction } from '../../config'
-import { Vfs } from '../vfs'
-import { buildAbstractionInstance } from './build-abstraction-instance'
+import { abstraction } from '../abstraction'
+import { addFile } from '../vfs/add-file'
+import { createVfsRoot } from '../vfs/create-root'
+import { parseAbstractionInstance } from './parse-abstraction-instance'
+import type { AbstractionInstance } from './types'
 
 describe('createVfsRoot', () => {
   it('allows adding files and creates folders automatically', () => {
@@ -15,16 +16,17 @@ describe('createVfsRoot', () => {
     const mapUi = join('/', 'project', 'features', 'map', 'ui.tsx')
     const sharedUiButton = join('/', 'project', 'shared', 'ui', 'button.tsx')
 
-    const vfs = new Vfs(project)
-    vfs.addFile(usersIndex)
-    vfs.addFile(usersUi)
-    vfs.addFile(mapIndex)
-    vfs.addFile(mapUi)
-    vfs.addFile(sharedUiButton)
-    vfs.addFile(indexFile)
-    vfs.addFile(join(project, '1.service', 'service.ts'))
-    vfs.addFile(join(project, '2.service', 'service.ts'))
-    vfs.addFile(join(project, 'services', '3.service', 'service.ts'))
+    let vfs = createVfsRoot(project)
+
+    vfs = addFile(vfs, usersIndex)
+    vfs = addFile(vfs, usersUi)
+    vfs = addFile(vfs, mapIndex)
+    vfs = addFile(vfs, mapUi)
+    vfs = addFile(vfs, sharedUiButton)
+    vfs = addFile(vfs, indexFile)
+    vfs = addFile(vfs, join(project, '1.service', 'service.ts'))
+    vfs = addFile(vfs, join(project, '2.service', 'service.ts'))
+    vfs = addFile(vfs, join(project, 'services', '3.service', 'service.ts'))
 
     const service = abstraction('service')
     const feature = abstraction('feature')
@@ -45,7 +47,7 @@ describe('createVfsRoot', () => {
       },
     })
 
-    const result = buildAbstractionInstance(app, vfs.root)
+    const result = parseAbstractionInstance(app)(vfs)
 
     expect(result).toEqual({
       path: project,
