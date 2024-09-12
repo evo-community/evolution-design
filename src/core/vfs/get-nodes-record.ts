@@ -1,5 +1,5 @@
-import { memoize } from '../../kit/memoize'
 import type { Path, VfsNode } from './types'
+import { memoize } from '../../kit/memoize'
 
 export const getNodesRecord = memoize((node: VfsNode): Record<Path, VfsNode> => {
   if (node.type === 'file') {

@@ -1,9 +1,9 @@
+import type { AugmentedDiagnostic } from './types.js'
 import chalk from 'chalk'
-import figures from 'figures'
 
+import figures from 'figures'
 import { formatSingleDiagnostic } from './format-single-diagnostic'
 import { s } from './pluralization'
-import type { AugmentedDiagnostic } from './types.js'
 
 export function formatPretty(diagnostics: Array<AugmentedDiagnostic>, cwd: string) {
   if (diagnostics.length === 0) {

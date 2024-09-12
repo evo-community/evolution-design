@@ -1,8 +1,8 @@
+import type { AugmentedDiagnostic } from './pretty-reporter'
 import { dirname, resolve } from 'node:path'
-import { type EvolutionConfig, parseAbstractionInstance, type Path, watchFs } from 'evolution-design/core'
+import { type EvolutionConfig, parseAbstractionInstance, watchFs } from 'evolution-design/core'
 import { debounceTime, map, type Observable, switchMap } from 'rxjs'
 import { runRules } from './run-rules'
-import type { AugmentedDiagnostic } from './pretty-reporter'
 
 export interface LinterConfig {
   watch?: boolean

@@ -1,6 +1,6 @@
+import type { Path, VfsFolder } from './types'
 import { basename, join, relative, sep } from 'node:path'
 import { produce } from 'immer'
-import type { Path, VfsFolder } from './types'
 
 export function addFile(tree: VfsFolder, newFilePath: Path) {
   const rootPath = tree.path

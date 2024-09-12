@@ -1,5 +1,5 @@
-import { create } from 'zustand'
 import type { Todo } from './domain'
+import { create } from 'zustand'
 
 const defaultState = [
   {

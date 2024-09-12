@@ -1,10 +1,10 @@
+import type { AbstractionInstance } from './types'
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { abstraction } from '../abstraction'
 import { addFile } from '../vfs/add-file'
 import { createVfsRoot } from '../vfs/create-root'
 import { parseAbstractionInstance } from './parse-abstraction-instance'
-import type { AbstractionInstance } from './types'
 
 describe('createVfsRoot', () => {
   it('allows adding files and creates folders automatically', () => {

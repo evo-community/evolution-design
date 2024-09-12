@@ -1,7 +1,7 @@
-import { z, type ZodType } from 'zod'
 import type { Abstraction } from '../abstraction'
 import type { Rule } from '../rule/types'
 import type { EvolutionConfig } from './define-config'
+import { z, type ZodType } from 'zod'
 
 type TypeToZod<T> = ZodType< T>
 

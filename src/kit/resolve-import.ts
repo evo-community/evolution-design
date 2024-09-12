@@ -1,6 +1,6 @@
+import type { CompilerOptions } from 'typescript'
 import { sep } from 'node:path'
 import ts from 'typescript'
-import type { CompilerOptions } from 'typescript'
 
 /**
  * Given a file name, an imported path, and a TSConfig object, produce a path to the imported file, relative to TypeScript's `baseUrl`.

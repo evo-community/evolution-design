@@ -1,9 +1,9 @@
-import { relative } from 'node:path'
-import { minimatch } from 'minimatch'
-import { memoize } from '../../kit/memoize'
 import type { Abstraction } from '../abstraction'
 import type { Path, VfsNode } from '../vfs/types'
 import type { AbstractionInstance } from './types'
+import { relative } from 'node:path'
+import { minimatch } from 'minimatch'
+import { memoize } from '../../kit/memoize'
 
 // Так как Vfs иммутабельный,
 // то ссылки на инсансы между вызовами

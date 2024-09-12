@@ -1,9 +1,9 @@
+import type { Todo } from '../model/domain'
 import { Button } from '@/shared/ui/shadcn/button.tsx'
 import { Checkbox } from '@/shared/ui/shadcn/checkbox.tsx'
 import { TrashIcon } from 'lucide-react'
 import { memo } from 'react'
 import { useTodos } from '../model/useTodos'
-import type { Todo } from '../model/domain'
 
 export const TodoItem = memo(({ todo }: { todo: Todo }) => {
   const toggleTodo = useTodos(state => state.toggleTodo)
