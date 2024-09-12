@@ -1,7 +1,6 @@
 import { dirname, resolve } from 'node:path'
 import { type EvolutionConfig, parseAbstractionInstance, type Path, watchFs } from 'evolution-design/core'
-import { shallowEqual } from 'evolution-design/kit'
-import { debounceTime, distinctUntilChanged, map, type Observable, switchMap } from 'rxjs'
+import { debounceTime, map, type Observable, switchMap } from 'rxjs'
 import { runRules } from './run-rules'
 import type { AugmentedDiagnostic } from './pretty-reporter'
 
@@ -18,7 +17,6 @@ export function lint({ watch, config, configPath }: LinterConfig): Observable<Au
   return watchFs(rootPath, { onlyReady: !watch }).pipe(
     debounceTime(500),
     map(({ vfs }) => ({ root: vfs, instance: parseNode(vfs) })),
-    distinctUntilChanged(shallowEqual),
     switchMap(runRules),
   )
 }

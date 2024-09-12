@@ -55,6 +55,8 @@ export default defineCommand({
       )
       .subscribe(async (diagnostics) => {
         if (watch) {
+          // eslint-disable-next-line no-console
+          console.clear()
           reportPretty(diagnostics, process.cwd())
           if (fix) {
             await applyAutofixes(diagnostics)

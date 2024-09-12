@@ -1,8 +1,11 @@
 import { memoize } from '../../kit/memoize'
-import type { VfsFile, VfsFolder } from './types'
+import type { VfsFile, VfsNode } from './types'
 
-export const getFlattenFiles = memoize((folder: VfsFolder): VfsFile[] => {
-  return folder.children.reduce((acc, child) => {
+export const getFlattenFiles = memoize((node: VfsNode): VfsFile[] => {
+  if (node.type === 'file') {
+    return [node]
+  }
+  return node.children.reduce((acc, child) => {
     if (child.type === 'file') {
       return [...acc, child]
     }
