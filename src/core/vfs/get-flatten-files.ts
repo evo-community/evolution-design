@@ -1,5 +1,5 @@
-import { memoize } from '../../kit/memoize'
 import type { VfsFile, VfsNode } from './types'
+import { memoize } from 'evolution-design/kit'
 
 export const getFlattenFiles = memoize((node: VfsNode): VfsFile[] => {
   if (node.type === 'file') {

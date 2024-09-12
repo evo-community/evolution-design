@@ -1,8 +1,8 @@
+import type { EvolutionConfig } from './define-config'
 import { loadConfig, watchConfig as watchConfigC12 } from 'c12'
-import { from, map, Observable, switchMap, tap } from 'rxjs'
+import { from, map, Observable, switchMap } from 'rxjs'
 import { ConfigurationInvalidError, ConfigurationNotFoundError } from './errors'
 import { EvolutionConfigSchema } from './schema'
-import type { EvolutionConfig } from './define-config'
 
 const CONFIG_NAME = 'evo'
 

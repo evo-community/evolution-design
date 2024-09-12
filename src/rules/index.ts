@@ -10,7 +10,6 @@ import { resolveImport } from 'evolution-design/kit'
 import precinct from 'precinct'
 
 import { parse as parseNearestTsConfig } from 'tsconfck'
-import { NAMESPACE } from '../constants.js'
 
 // Rules
 export function indexPublicApi(): Rule {

@@ -1,6 +1,6 @@
+import type { Diagnostic } from 'evolution-design/core'
 import { mkdir, open, rename, rm } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
-import type { Diagnostic } from 'evolution-design/core'
 
 export async function applyAutofixes<T extends Diagnostic>(
   diagnostics: Array<T>,

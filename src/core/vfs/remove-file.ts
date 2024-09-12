@@ -1,6 +1,6 @@
+import type { Path, VfsFolder } from './types'
 import { basename, relative, sep } from 'node:path'
 import { produce } from 'immer'
-import type { Path, VfsFolder } from './types'
 
 export function removeFile(tree: VfsFolder, removedFilePath: Path) {
   const rootPath = tree.path

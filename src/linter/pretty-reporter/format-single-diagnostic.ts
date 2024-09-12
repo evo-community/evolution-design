@@ -1,8 +1,8 @@
+import type { AugmentedDiagnostic } from './types'
 import { relative } from 'node:path'
 import chalk from 'chalk'
 import figures from 'figures'
 import terminalLink from 'terminal-link'
-import type { AugmentedDiagnostic } from './types'
 
 export function formatSingleDiagnostic(d: AugmentedDiagnostic, cwd: string): string {
   const x = d.rule.severity === 'error' ? chalk.red(figures.cross) : chalk.yellow(figures.warning)

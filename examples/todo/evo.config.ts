@@ -1,3 +1,7 @@
+import type {
+  Abstraction,
+  Rule,
+} from 'evolution-design'
 import {
   abstraction,
   defineConfig,
@@ -7,10 +11,6 @@ import {
   noUnabstractionFiles,
   publicAbstraction,
 } from 'evolution-design/rules'
-import type {
-  Abstraction,
-  Rule,
-} from 'evolution-design'
 
 function layer({
   name,

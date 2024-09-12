@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import type { Todo } from './domain'
+import { useState } from 'react'
 
 export function useSort(todos: Todo[]) {
   const [sortBy, setSortBy] = useState('date')

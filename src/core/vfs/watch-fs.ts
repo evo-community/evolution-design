@@ -1,3 +1,4 @@
+import type { Path, VfsEvents } from './types'
 import { join, sep } from 'node:path'
 import chokidar from 'chokidar'
 import { type GlobbyFilterFunction, isGitIgnored } from 'globby'
@@ -5,7 +6,6 @@ import { filter, from, Observable, switchMap } from 'rxjs'
 import { addFile } from './add-file'
 import { createVfsRoot } from './create-root'
 import { removeFile } from './remove-file'
-import type { Path, VfsEvents } from './types'
 
 export function watchFs(path: Path, { onlyReady }: { onlyReady?: boolean } = {}) {
   const isIgnored$ = from(isGitIgnored({ cwd: path }))
