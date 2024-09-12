@@ -1,4 +1,13 @@
-import type { Abstraction, Rule } from 'evolution-design/types'
+import type { Rule } from './rule/types'
+
+export type AbstractionName = string
+export type AbstractionMahter = string
+export interface Abstraction {
+  name: AbstractionName
+  children: Record<AbstractionMahter, Abstraction>
+  rules: Rule[]
+  fractal?: AbstractionName
+}
 
 export interface AbstractionOptions {
   name: string

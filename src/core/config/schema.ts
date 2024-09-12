@@ -1,11 +1,15 @@
 import { z, type ZodType } from 'zod'
-import type { Abstraction, EvolutionConfig, Rule } from 'evolution-design/types'
+import type { Abstraction } from '../abstraction'
+import type { Rule } from '../rule/types'
+import type { EvolutionConfig } from './define-config'
 
 type TypeToZod<T> = ZodType< T>
 
 const RuleSchema: TypeToZod<Rule> = z.object({
   name: z.string(),
   check: z.custom<Rule['check']>(),
+  severity: z.enum(['off', 'warn', 'error']),
+  descriptionUrl: z.string().optional(),
 })
 
 const AbstractionSchema: TypeToZod<Abstraction> = z.object({

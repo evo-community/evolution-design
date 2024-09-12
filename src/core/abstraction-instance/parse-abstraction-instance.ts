@@ -1,11 +1,14 @@
 import { relative } from 'node:path'
 import { minimatch } from 'minimatch'
-import type { Abstraction, AbstractionInstance, Path, VfsNode } from 'evolution-design/types'
+import { memoize } from '../../kit/memoize'
+import type { Abstraction } from '../abstraction'
+import type { Path, VfsNode } from '../vfs/types'
+import type { AbstractionInstance } from './types'
 
-export function buildAbstractionInstance(
-  abstraction: Abstraction,
-  node: VfsNode,
-): AbstractionInstance {
+// Так как Vfs иммутабельный,
+// то ссылки на инсансы между вызовами
+// не будут изменены, благодаря мемоизации
+export const parseAbstractionInstance = memoize((abstraction: Abstraction) => memoize((node: VfsNode): AbstractionInstance => {
   if (node.type === 'file') {
     return {
       abstraction,
@@ -19,12 +22,13 @@ export function buildAbstractionInstance(
   const children: Record<Path, AbstractionInstance> = {}
 
   for (const [pattern, childAbstraction] of Object.entries(abstraction.children)) {
+    const nodeAbstractionInstance = parseAbstractionInstance(childAbstraction)
     const nodesStack: VfsNode[] = [node]
     while (nodesStack.length) {
       const currentNode = nodesStack.pop()!
       // Если путь соответствует паттерну. То записываем или **перезаписываем** инстранс абстракции
       if (minimatch(relative(node.path, currentNode.path), pattern)) {
-        children[currentNode.path] = buildAbstractionInstance(childAbstraction, currentNode)
+        children[currentNode.path] = nodeAbstractionInstance(currentNode)
 
         // Внутрь дирректории для которой создали абстракцию не идём
         continue
@@ -68,4 +72,4 @@ export function buildAbstractionInstance(
     childNodes: Object.values(childNodes),
     children: Object.values(children),
   }
-}
+}))

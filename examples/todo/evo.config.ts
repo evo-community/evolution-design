@@ -1,16 +1,16 @@
-// TODO: remove dist from imports
-// Important: check typescript and runtime import works
 import {
   abstraction,
   defineConfig,
+} from 'evolution-design'
+import {
   importsDirection,
   noUnabstractionFiles,
   publicAbstraction,
-} from 'evolution-design/dist/config'
+} from 'evolution-design/rules'
 import type {
   Abstraction,
   Rule,
-} from 'evolution-design/dist/types'
+} from 'evolution-design'
 
 function layer({
   name,

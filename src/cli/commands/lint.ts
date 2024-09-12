@@ -1,12 +1,10 @@
-/* eslint-disable no-console */
 import { spawn } from 'node:child_process'
-import { dirname, resolve } from 'node:path'
 import process from 'node:process'
 import { defineCommand } from 'citty'
-import { loadConfig } from 'evolution-design/config'
-import { linter } from 'evolution-design/linter'
+import { watchConfig } from 'evolution-design/core'
+import { applyAutofixes, lint } from 'evolution-design/linter'
 import prexit from 'prexit'
-import { from } from 'rxjs'
+import { catchError, map, switchMap } from 'rxjs'
 import { ZodError } from 'zod'
 import { fromError } from 'zod-validation-error'
 import { reportPretty } from '../../linter/pretty-reporter'
@@ -18,45 +16,74 @@ export default defineCommand({
   },
 
   args: {
-    watch: {
+    'watch': {
       type: 'boolean',
       description: 'Watch for changes',
       default: false,
     },
+    'fix': {
+      type: 'boolean',
+      description: 'Apply autofixes',
+      default: false,
+    },
+    'fail-on-warning': {
+      type: 'boolean',
+      description: 'Fail on warnings',
+      default: false,
+    },
   },
   async run(ctx) {
-    try {
-      const { watch } = ctx.args
+    const { watch, fix, 'fail-on-warning': failOnWarning } = ctx.args
 
-      const { configPath, config } = await loadConfig()
+    const subscription = watchConfig({
+      cwd: process.cwd(),
+      onlyOne: !watch,
+    })
+      .pipe(
+        map(({ configPath, config }) => ({ configPath, config, watch })),
+        switchMap(lint),
+        catchError((e) => {
+          if (e instanceof ZodError) {
+            console.error(fromError(e).toString())
+          }
+          else if (e instanceof Error) {
+            console.error(e.message)
+          }
 
-      const fullPath = resolve(dirname(configPath), config.baseUrl ?? './')
-
-      const results$ = watch ? linter.watch(fullPath, config.root) : from(linter.run(fullPath, config.root))
-
-      const subscription = results$.subscribe((result) => {
+          process.exit(1)
+        }),
+      )
+      .subscribe(async (diagnostics) => {
         if (watch) {
+          // eslint-disable-next-line no-console
           console.clear()
-          reportPretty(result, process.cwd())
+          reportPretty(diagnostics, process.cwd())
+          if (fix) {
+            await applyAutofixes(diagnostics)
+          }
         }
         else {
-          reportPretty(result, process.cwd())
+          let stillRelevantDiagnostics = diagnostics
+
+          reportPretty(diagnostics, process.cwd())
+
+          if (fix) {
+            stillRelevantDiagnostics = await applyAutofixes(diagnostics)
+          }
+
+          if (stillRelevantDiagnostics.length > 0) {
+            const onlyWarnings = stillRelevantDiagnostics.every(
+              d => d.rule.severity === 'warn',
+            )
+            if (failOnWarning || !onlyWarnings) {
+              process.exit(1)
+            }
+          }
           process.exit(0)
         }
       })
 
-      prexit(() => subscription.unsubscribe())
-    }
-    catch (e) {
-      if (e instanceof ZodError) {
-        console.error(fromError(e).toString())
-      }
-      else if (e instanceof Error) {
-        console.error(e.message)
-      }
-
-      process.exit(1)
-    }
+    prexit(() => subscription.unsubscribe())
   },
 })
 

@@ -5,11 +5,12 @@ import { defineBuildConfig } from 'unbuild'
 const srcDir = fileURLToPath(new URL('src', import.meta.url))
 
 export const subpaths = [
+  'core',
+  'rules',
+  'linter',
   'cli',
   'meta',
-  'config',
-  'types',
-  'linter',
+  'kit',
 ]
 
 export default defineBuildConfig({
@@ -17,14 +18,11 @@ export default defineBuildConfig({
   name: 'evolution-design',
   failOnWarn: false,
   entries: [
-    // CLI
+    { input: 'src/core/index.ts' },
+    { input: 'src/rules/index.ts' },
+    { input: 'src/linter/index.ts' },
     { input: 'src/cli/index.ts' },
-    // // Config
-    { input: 'src/config/index.ts' },
-    // // Meta
     { input: 'src/meta/index.ts' },
-    // // Types
-    { input: 'src/types/index.ts' },
   ],
   alias: {
     'evolution-design': 'evolution-design',

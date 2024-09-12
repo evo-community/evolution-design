@@ -1,1 +1,0 @@
-export { Vfs } from './vfs'
