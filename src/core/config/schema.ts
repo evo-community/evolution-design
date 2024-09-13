@@ -17,6 +17,7 @@ const AbstractionSchema: TypeToZod<Abstraction> = z.object({
   children: z.record(z.lazy(() => AbstractionSchema)),
   rules: z.array(RuleSchema),
   fractal: z.string().optional(),
+  fileTemplate: z.custom<Abstraction['fileTemplate']>(),
 })
 
 export const EvolutionConfigSchema: TypeToZod<EvolutionConfig> = z.object({
