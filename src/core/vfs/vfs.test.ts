@@ -1,8 +1,9 @@
 import { join } from 'node:path'
 import { describe, expect, it } from 'vitest'
+import { addDirectory } from './add-directory'
 import { addFile } from './add-file'
 import { createVfsRoot } from './create-root'
-import { removeFile } from './remove-file'
+import { removeNode } from './remove-node'
 
 describe('vfs root', () => {
   it('allows adding files and creates folders automatically', () => {
@@ -52,7 +53,31 @@ describe('vfs root', () => {
     })
   })
 
-  it('allows removing files and deletes empty folders automatically', () => {
+  it('allows add directory', () => {
+    let vfs = createVfsRoot(join('/', 'project', 'src'))
+
+    vfs = addDirectory(vfs, join('/', 'project', 'src', 'components', 'ui'))
+
+    expect(vfs).toEqual({
+      type: 'folder',
+      path: join('/', 'project', 'src'),
+      children: [
+        {
+          type: 'folder',
+          path: join('/', 'project', 'src', 'components'),
+          children: [
+            {
+              type: 'folder',
+              path: join('/', 'project', 'src', 'components', 'ui'),
+              children: [],
+            },
+          ],
+        },
+      ],
+    })
+  })
+
+  it('allows removing files', () => {
     let vfs = createVfsRoot(join('/', 'project', 'src'))
 
     vfs = addFile(vfs, join('/', 'project', 'src', 'index.ts'))
@@ -85,7 +110,7 @@ describe('vfs root', () => {
       ],
     })
 
-    vfs = removeFile(vfs, join('/', 'project', 'src', 'components', 'input', 'styles.ts'))
+    vfs = removeNode(vfs, join('/', 'project', 'src', 'components', 'input', 'styles.ts'))
 
     expect(vfs).toEqual({
       type: 'folder',
@@ -95,12 +120,39 @@ describe('vfs root', () => {
           type: 'file',
           path: join('/', 'project', 'src', 'index.ts'),
         },
+        {
+          type: 'folder',
+          path: join('/', 'project', 'src', 'components'),
+          children: [
+            {
+              type: 'folder',
+              path: join('/', 'project', 'src', 'components', 'input'),
+              children: [],
+            },
+          ],
+        },
       ],
     })
 
-    vfs = removeFile(vfs, join('/', 'project', 'src', 'index.ts'))
+    vfs = removeNode(vfs, join('/', 'project', 'src', 'index.ts'))
 
-    expect(vfs).toEqual({ type: 'folder', path: join('/', 'project', 'src'), children: [] })
+    expect(vfs).toEqual({
+      type: 'folder',
+      path: join('/', 'project', 'src'),
+      children: [
+        {
+          type: 'folder',
+          path: join('/', 'project', 'src', 'components'),
+          children: [
+            {
+              type: 'folder',
+              path: join('/', 'project', 'src', 'components', 'input'),
+              children: [],
+            },
+          ],
+        },
+      ],
+    })
   })
 
   it('allows tracking two separate roots independently', () => {

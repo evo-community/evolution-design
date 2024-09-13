@@ -89,6 +89,7 @@
     "globby": "^14.0.2",
     "immer": "^10.1.1",
     "install": "^0.13.0",
+    "is-glob": "^4.0.3",
     "minimatch": "^10.0.1",
     "npm": "^10.8.3",
     "precinct": "^12.1.2",
@@ -102,6 +103,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.3.2",
+    "@types/is-glob": "^4.0.4",
     "@types/node": "^22.5.4",
     "bumpp": "^9.4.0",
     "eslint": "^9.10.0",

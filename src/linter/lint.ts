@@ -1,7 +1,7 @@
 import type { AugmentedDiagnostic } from './pretty-reporter'
 import { dirname, resolve } from 'node:path'
-import { type EvolutionConfig, parseAbstractionInstance, watchFs } from 'evolution-design/core'
-import { debounceTime, map, type Observable, switchMap } from 'rxjs'
+import { type EvolutionConfig, parseAbstractionInstance, parseDependenciesMap, watchFs } from 'evolution-design/core'
+import { debounceTime, type Observable, switchMap } from 'rxjs'
 import { runRules } from './run-rules'
 
 export interface LinterConfig {
@@ -16,7 +16,11 @@ export function lint({ watch, config, configPath }: LinterConfig): Observable<Au
   const parseNode = parseAbstractionInstance(config.root)
   return watchFs(rootPath, { onlyReady: !watch }).pipe(
     debounceTime(500),
-    map(({ vfs }) => ({ root: vfs, instance: parseNode(vfs) })),
+    switchMap(async ({ vfs }) => ({
+      root: vfs,
+      instance: parseNode(vfs),
+      dependenciesMap: await parseDependenciesMap(vfs),
+    })),
     switchMap(runRules),
   )
 }
