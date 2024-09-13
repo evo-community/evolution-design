@@ -124,6 +124,10 @@ export function publicAbstraction(name: string): Rule {
       for (const [path, childInstance] of childFilesEntires) {
         const importers = dependenciesMap.dependencyFor[path]
 
+        if (!importers) {
+          continue
+        }
+
         if (childInstance.abstraction.name === name) {
           continue
         }
