@@ -43,7 +43,10 @@ async function tryToApplyFixes(diagnostic: Diagnostic) {
         case 'rename':
           return rename(fix.path, join(dirname(fix.path), fix.newName))
         case 'create-file':
-          return open(fix.path, 'w').then(file => file.close())
+          return open(fix.path, 'w').then((file) => {
+            file.write(fix.content)
+            return file.close()
+          })
         case 'create-folder':
           return mkdir(fix.path, { recursive: true })
         case 'delete':
