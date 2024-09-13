@@ -1,4 +1,3 @@
-import { spawn } from 'node:child_process'
 import process from 'node:process'
 import { defineCommand } from 'citty'
 import { watchConfig } from 'evolution-design/core'
@@ -86,14 +85,3 @@ export default defineCommand({
     prexit(() => subscription.unsubscribe())
   },
 })
-
-export function restartProcess() {
-  process.on('exit', () => {
-    spawn(process.argv.shift()!, process.argv, {
-      cwd: process.cwd(),
-      detached: true,
-      stdio: 'inherit',
-    })
-  })
-  process.exit()
-}
