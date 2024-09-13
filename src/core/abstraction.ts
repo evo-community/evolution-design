@@ -1,4 +1,5 @@
 import type { Rule } from './rule/types'
+import type { Path } from './vfs/types'
 
 export type AbstractionName = string
 export type AbstractionMahter = string
@@ -7,6 +8,7 @@ export interface Abstraction {
   children: Record<AbstractionMahter, Abstraction>
   rules: Rule[]
   fractal?: AbstractionName
+  fileTemplate?: (path: Path) => string
 }
 
 export interface AbstractionOptions {
@@ -14,6 +16,7 @@ export interface AbstractionOptions {
   children?: Record<string, Abstraction>
   rules?: Rule[]
   fractal?: string
+  fileTemplate?: (path: Path) => string
 }
 export function abstraction(name: string): Abstraction
 export function abstraction(config: AbstractionOptions): Abstraction
@@ -31,5 +34,6 @@ export function abstraction(options: AbstractionOptions | string): Abstraction {
     children: options.children ?? {},
     rules: options.rules ?? [],
     fractal: options.fractal,
+    fileTemplate: options.fileTemplate,
   }
 }

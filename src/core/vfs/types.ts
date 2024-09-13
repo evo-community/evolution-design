@@ -14,6 +14,6 @@ export interface VfsFolder {
 }
 
 export interface VfsEvents {
-  type: 'change' | 'add' | 'unlink' | 'ready'
+  type: 'change' | 'add' | 'unlink' | 'ready' | 'unlinkDir' | 'addDir'
   vfs: VfsNode
 }

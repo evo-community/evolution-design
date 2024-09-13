@@ -3,9 +3,10 @@ import { join, sep } from 'node:path'
 import chokidar from 'chokidar'
 import { type GlobbyFilterFunction, isGitIgnored } from 'globby'
 import { filter, from, Observable, switchMap } from 'rxjs'
+import { addDirectory } from './add-directory'
 import { addFile } from './add-file'
 import { createVfsRoot } from './create-root'
-import { removeFile } from './remove-file'
+import { removeNode } from './remove-node'
 
 export function watchFs(path: Path, { onlyReady }: { onlyReady?: boolean } = {}) {
   const isIgnored$ = from(isGitIgnored({ cwd: path }))
@@ -38,13 +39,23 @@ function createWatcherObservable({ path, isIgnored }: { path: string, isIgnored:
       observer.next({ type: 'add', vfs })
     })
 
+    watcher.on('addDir', async (relativePath) => {
+      vfs = addDirectory(vfs, join(path, relativePath))
+      observer.next({ type: 'addDir', vfs })
+    })
+
     watcher.on('change', async () => {
       observer.next({ type: 'change', vfs })
     })
 
     watcher.on('unlink', async (relativePath) => {
-      vfs = removeFile(vfs, join(path, relativePath))
+      vfs = removeNode(vfs, join(path, relativePath))
       observer.next({ type: 'unlink', vfs })
+    })
+
+    watcher.on('unlinkDir', async (relativePath) => {
+      vfs = removeNode(vfs, join(path, relativePath))
+      observer.next({ type: 'unlinkDir', vfs })
     })
 
     watcher.on('ready', () => {

@@ -6,8 +6,8 @@ import { addFile } from '../vfs/add-file'
 import { createVfsRoot } from '../vfs/create-root'
 import { parseAbstractionInstance } from './parse-abstraction-instance'
 
-describe('createVfsRoot', () => {
-  it('allows adding files and creates folders automatically', () => {
+describe('parseAbstractionInstance', () => {
+  it('return abstraction instance from vfs and abstraction', () => {
     const project = join('/', 'project')
     const indexFile = join('/', 'project', 'index.ts')
     const usersIndex = join('/', 'project', 'features', 'user', 'index.ts')
@@ -97,6 +97,51 @@ describe('createVfsRoot', () => {
           childNodes: [join(project, '1.service', 'service.ts')],
           children: [],
         },
+      ],
+    } satisfies AbstractionInstance)
+  })
+
+  it('allow redeclare abstractions by underlaying abstractions', () => {
+    const projectPath = join('/', 'project')
+    const file1Path = join('/', 'project', 'file1.ts')
+    const mapIndexPath = join('/', 'project', 'map', 'index.ts')
+
+    let vfs = createVfsRoot(projectPath)
+
+    vfs = addFile(vfs, file1Path)
+    vfs = addFile(vfs, mapIndexPath)
+
+    const other = abstraction('other')
+    const map = abstraction('map')
+
+    const app = abstraction({
+      name: 'app',
+      children: {
+        '*': other,
+        'map': map,
+      },
+    })
+
+    const result = parseAbstractionInstance(app)(vfs)
+
+    expect(result).toEqual({
+      path: projectPath,
+      abstraction: app,
+      childNodes: [],
+      children: [
+        {
+          path: join(projectPath, 'map'),
+          abstraction: map,
+          childNodes: [mapIndexPath],
+          children: [],
+        },
+        {
+          path: file1Path,
+          abstraction: other,
+          childNodes: [],
+          children: [],
+        },
+
       ],
     } satisfies AbstractionInstance)
   })

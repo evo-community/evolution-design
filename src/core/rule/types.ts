@@ -1,4 +1,5 @@
 import type { AbstractionInstance } from '../abstraction-instance/types'
+import type { DependenciesMap } from '../dependencies-map/types'
 import type { Path, VfsNode } from '../vfs/types'
 
 export type RuleName = string
@@ -20,6 +21,7 @@ export interface RuleOptions {
 export interface RuleContext {
   root: VfsNode
   instance: AbstractionInstance
+  dependenciesMap: DependenciesMap
 }
 
 export type Fix =
