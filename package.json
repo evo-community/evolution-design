@@ -1,17 +1,28 @@
 {
   "name": "evolution-design",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.2",
   "packageManager": "pnpm@8.15.6",
   "description": "",
   "license": "MIT",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./core": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
+        "types": "./dist/core/index.d.ts",
+        "default": "./dist/core/index.mjs"
       }
+    },
+    "./rules": {
+      "types": "./dist/rules/index.d.ts",
+      "import": {
+        "types": "./dist/rules/index.d.ts",
+        "default": "./dist/rules/index.mjs"
+      },
+      "default": "./dist/rules/index.mjs"
     },
     "./cli": {
       "import": {
@@ -19,10 +30,28 @@
         "default": "./dist/cli/index.mjs"
       }
     },
+    "./linter": {
+      "import": {
+        "types": "./dist/linter/index.d.ts",
+        "default": "./dist/linter/index.mjs"
+      }
+    },
+    "./meta": {
+      "import": {
+        "types": "./dist/meta/index.d.ts",
+        "default": "./dist/meta/index.mjs"
+      }
+    },
+    "./kit": {
+      "import": {
+        "types": "./dist/kit/index.d.ts",
+        "default": "./dist/kit/index.mjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.mjs",
-  "types": "./dist/index.d.mts",
+  "types": "./dist/index.d.ts",
   "bin": {
     "evolution-design": "./dist/cli/index.mjs",
     "evo": "./dist/cli/index.mjs"
