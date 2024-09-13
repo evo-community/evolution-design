@@ -1,18 +1,13 @@
-import type {
-  Abstraction,
-  Rule,
-} from 'evolution-design'
+import type { Abstraction, Rule } from 'evolution-design'
 import {
   abstraction,
   defineConfig,
-} from 'evolution-design'
-import {
   dependenciesDirection,
   noUnabstractionFiles,
   publicAbstraction,
   requiredChildren,
   restrictCrossImports,
-} from 'evolution-design/rules'
+} from 'evolution-design'
 
 function layer({
   name,
@@ -56,10 +51,7 @@ const app = abstraction('app')
 const features = layer({
   name: 'features',
   child: feature(),
-  rules: [
-    restrictCrossImports(),
-    noUnabstractionFiles(),
-  ],
+  rules: [restrictCrossImports(), noUnabstractionFiles()],
 })
 
 const shared = abstraction('shared')

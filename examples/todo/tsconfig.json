@@ -4,12 +4,6 @@
     "paths": {
       "@/*": [
         "./src/*"
-      ],
-      "evolution-design": [
-        "../../src/core/index.ts"
-      ],
-      "evolution-design/rules": [
-        "../../src/rules/index.ts"
       ]
     }
   },

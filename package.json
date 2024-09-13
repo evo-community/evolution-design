@@ -7,19 +7,10 @@
   "license": "MIT",
   "exports": {
     ".": {
-      "types": "./dist/core/index.d.ts",
-      "default": "./dist/core/index.mjs"
-    },
-    "./core": {
+      "types": "./dist/index.d.ts",
       "import": {
-        "types": "./dist/core/index.d.ts",
-        "default": "./dist/core/index.mjs"
-      }
-    },
-    "./rules": {
-      "import": {
-        "types": "./dist/rules/index.d.ts",
-        "default": "./dist/rules/index.mjs"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
       }
     },
     "./cli": {
@@ -28,28 +19,10 @@
         "default": "./dist/cli/index.mjs"
       }
     },
-    "./linter": {
-      "import": {
-        "types": "./dist/linter/index.d.ts",
-        "default": "./dist/linter/index.mjs"
-      }
-    },
-    "./meta": {
-      "import": {
-        "types": "./dist/meta/index.d.ts",
-        "default": "./dist/meta/index.mjs"
-      }
-    },
-    "./kit": {
-      "import": {
-        "types": "./dist/kit/index.d.ts",
-        "default": "./dist/kit/index.mjs"
-      }
-    },
     "./package.json": "./package.json"
   },
-  "main": "./dist/core/index.mjs",
-  "types": "./dist/core/index.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "bin": {
     "evolution-design": "./dist/cli/index.mjs",
     "evo": "./dist/cli/index.mjs"

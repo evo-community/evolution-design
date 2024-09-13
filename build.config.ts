@@ -17,12 +17,8 @@ export default defineBuildConfig({
   declaration: true,
   name: 'evolution-design',
   entries: [
-    { input: 'src/core/index.ts' },
-    { input: 'src/rules/index.ts' },
-    { input: 'src/linter/index.ts' },
+    { input: 'src/index.ts' },
     { input: 'src/cli/index.ts' },
-    { input: 'src/meta/index.ts' },
-    { input: 'src/kit/index.ts' },
   ],
   alias: {
     'evolution-design': 'evolution-design',
