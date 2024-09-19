@@ -4,7 +4,13 @@ import {
   defineConfig,
 } from 'evolution-design'
 
-import { dependenciesDirection, noUnabstractionFiles, publicAbstraction, requiredChildren, restrictCrossImports } from 'evolution-design/rules'
+import {
+  dependenciesDirection,
+  noUnabstractionFiles,
+  publicAbstraction,
+  requiredChildren,
+  restrictCrossImports,
+} from 'evolution-design/rules'
 
 function layer({
   name,
