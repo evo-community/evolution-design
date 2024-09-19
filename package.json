@@ -52,6 +52,25 @@
   },
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/index.d.ts"
+      ],
+      "rules": [
+        "./dist/rules/index.d.ts"
+      ],
+      "linter": [
+        "./dist/linter/index.d.ts"
+      ],
+      "meta": [
+        "./dist/meta/index.d.ts"
+      ],
+      "kit": [
+        "./dist/kit/index.d.ts"
+      ]
+    }
+  },
   "bin": {
     "evolution-design": "./dist/cli/index.mjs",
     "evo": "./dist/cli/index.mjs"
