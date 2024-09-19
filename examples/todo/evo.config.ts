@@ -2,12 +2,15 @@ import type { Abstraction, Rule } from 'evolution-design'
 import {
   abstraction,
   defineConfig,
+} from 'evolution-design'
+
+import {
   dependenciesDirection,
   noUnabstractionFiles,
   publicAbstraction,
   requiredChildren,
   restrictCrossImports,
-} from 'evolution-design'
+} from 'evolution-design/rules'
 
 function layer({
   name,
