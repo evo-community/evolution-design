@@ -1,6 +1,6 @@
 ---
-title: Файл конфигурации
-description: A guide in my new Starlight docs site.
+title: Конфигурация
+description: Конфигурация
 ---
 
 evo.config

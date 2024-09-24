@@ -1,6 +1,6 @@
 ---
-title: Config
-description: A guide in my new Starlight docs site.
+title: Configuration
+description: Configuration
 ---
 
 evo.config.ts

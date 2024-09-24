@@ -27,6 +27,28 @@ export default defineConfig({
       },
       sidebar: [
         {
+          label: 'Почему Evolution Design?',
+          translations: {
+            'en': 'Why Evolution Design?'
+          },
+          items: [
+            { 
+              label: 'Проблема', 
+              slug: 'why',
+              translations: {
+                'en': 'Problem'
+              },
+            },
+            { 
+              label: 'Решение', 
+              slug: 'why/resolve',
+              translations: {
+                'en': 'Problem resolve'
+              },
+            },
+          ]
+        },
+        {
           label: 'Руководство',
           translations: {
             'en': 'Guide'
@@ -40,14 +62,36 @@ export default defineConfig({
               },
             },
             { 
-              label: 'Файл конфигурации', 
+              label: 'Конфигурация', 
               slug: 'guide/config',
               translations: {
-                'en': 'Config'
+                'en': 'Configuration'
+              },
+            },
+            { 
+              label: 'Примеры',
+              slug: 'guide/examples',
+              translations: {
+                'en': 'Examples'
               },
             },
           ],
         },
+        {
+          label: 'Базовые архитектурные понятия',
+          translations: {
+            'en': 'Core architectural concepts'
+          },
+          items: [
+            { 
+              label: 'Глоссарий', 
+              slug: 'core-architectural-concepts',
+              translations: {
+                'en': 'Glossary'
+              },
+            },
+          ]
+        }
       ],
     }),
   ],
