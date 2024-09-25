@@ -19,60 +19,60 @@ export default defineConfig({
       locales: {
         root: {
           label: 'Russian',
-          lang: 'ru'
+          lang: 'ru',
         },
         en: {
           label: 'English',
-        }
+        },
       },
       sidebar: [
         {
           label: 'Почему Evolution Design?',
           translations: {
-            'en': 'Why Evolution Design?'
+            en: 'Why Evolution Design?',
           },
           items: [
-            { 
-              label: 'Проблема', 
+            {
+              label: 'Проблема',
               slug: 'why',
               translations: {
-                'en': 'Problem'
+                en: 'Problem',
               },
             },
-            { 
-              label: 'Решение', 
+            {
+              label: 'Решение',
               slug: 'why/resolve',
               translations: {
-                'en': 'Problem resolve'
+                en: 'Problem resolve',
               },
             },
-          ]
+          ],
         },
         {
           label: 'Руководство',
           translations: {
-            'en': 'Guide'
+            en: 'Guide',
           },
           items: [
-            { 
-              label: 'Начало работы', 
+            {
+              label: 'Начало работы',
               slug: 'guide',
               translations: {
-                'en': 'Getting started'
+                en: 'Getting started',
               },
             },
-            { 
-              label: 'Конфигурация', 
+            {
+              label: 'Конфигурация',
               slug: 'guide/config',
               translations: {
-                'en': 'Configuration'
+                en: 'Configuration',
               },
             },
-            { 
+            {
               label: 'Примеры',
               slug: 'guide/examples',
               translations: {
-                'en': 'Examples'
+                en: 'Examples',
               },
             },
           ],
@@ -80,18 +80,18 @@ export default defineConfig({
         {
           label: 'Базовые архитектурные понятия',
           translations: {
-            'en': 'Core architectural concepts'
+            en: 'Core architectural concepts',
           },
           items: [
-            { 
-              label: 'Глоссарий', 
+            {
+              label: 'Глоссарий',
               slug: 'core-architectural-concepts',
               translations: {
-                'en': 'Glossary'
+                en: 'Glossary',
               },
             },
-          ]
-        }
+          ],
+        },
       ],
     }),
   ],
