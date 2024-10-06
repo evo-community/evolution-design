@@ -68,9 +68,9 @@ useEffect(() => {
     .then(setUsers)
 }, [])
 
-const getUserById = (id) =>
-  users.find(user => user.id === id)
+function getUserById(id) {
+  return users.find(user => user.id === id)
+}
 ```
-
 
 В примере выше используется `useState` для хранения пользователей и `useEffect` для однократной загрузки данных с сервера. Данные кэшируются в `users`. Функция `getUserById` ищет пользователя в этом кэше, избегая повторных запросов к серверу.
