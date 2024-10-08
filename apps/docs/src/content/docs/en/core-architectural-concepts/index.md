@@ -4,13 +4,13 @@ description: Glossary
 ---
 
 ### Information
-Coming soon!
+A collection of knowledge about an object.
 
 ### Data
-Coming soon!
+Encoded information.
 
 ### State
-Coming soon!
+Data stored in the system.
 
 ### Cache
-Coming soon!
+A duplicate of the state to save computational resources.
