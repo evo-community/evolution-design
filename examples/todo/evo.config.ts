@@ -12,22 +12,41 @@ import {
   restrictCrossImports,
 } from 'evolution-design/rules'
 
-function layer({
-  name,
-  child,
-  rules = [],
-}: {
-  name: string
-  child: Abstraction
-  rules?: Rule[]
-}) {
+export default defineConfig({
+  root: root(),
+  baseUrl: './src',
+})
+
+// Пример реализации слоёв FSD
+function root() {
   return abstraction({
-    name,
+    name: 'fsdApp',
     children: {
-      '*': child,
+      app: app(),
+      features: features(),
+      shared: shared(),
     },
-    rules: [...rules],
+    rules: [
+      dependenciesDirection(['app', 'features', 'shared']),
+      noUnabstractionFiles(),
+    ],
   })
+}
+
+function app() {
+  return abstraction('app')
+}
+
+function features() {
+  return layer({
+    name: 'features',
+    child: feature(),
+    rules: [restrictCrossImports(), noUnabstractionFiles()],
+  })
+}
+
+function shared() {
+  return abstraction('shared')
 }
 
 function feature() {
@@ -49,33 +68,20 @@ function feature() {
   })
 }
 
-const app = abstraction('app')
-
-const features = layer({
-  name: 'features',
-  child: feature(),
-  rules: [restrictCrossImports(), noUnabstractionFiles()],
-})
-
-const shared = abstraction('shared')
-
-// Пример реализации слоёв FSD
-function root() {
+function layer({
+  name,
+  child,
+  rules = [],
+}: {
+  name: string
+  child: Abstraction
+  rules?: Rule[]
+}) {
   return abstraction({
-    name: 'fsdApp',
+    name,
     children: {
-      app,
-      features,
-      shared,
+      '*': child,
     },
-    rules: [
-      dependenciesDirection(['app', 'features', 'shared']),
-      noUnabstractionFiles(),
-    ],
+    rules: [...rules],
   })
 }
-
-export default defineConfig({
-  root: root(),
-  baseUrl: './src',
-})
