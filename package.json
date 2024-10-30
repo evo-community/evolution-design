@@ -89,6 +89,7 @@
     "build:stub": "unbuild --stub",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
+    "myCommand": "tsx ./src/cli/index.ts myCommand",
     "release": "pnpm run test && bumpp -r && pnpm publish",
     "prepare": "simple-git-hooks",
     "test": "pnpm run /^test:/",
@@ -96,7 +97,8 @@
     "test:ts": "tsc --noEmit",
     "test:unit": "vitest --run",
     "vitest": "vitest",
-    "evo": "tsx ./src/cli/index.ts"
+    "evo": "tsx ./src/cli/index.ts",
+    "evo:init": "test command for cli"
   },
   "dependencies": {
     "c12": "^1.11.2",
