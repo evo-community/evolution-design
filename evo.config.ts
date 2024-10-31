@@ -40,10 +40,10 @@ const page = abstraction('page', {
   rules: [publicAbstraction('public-api'), requiredChildren()],
 })
 
-const appLayer = createAbstraction('app-layer', commonIndexTemplate)
-const widget = createAbstraction('widget', commonIndexTemplate)
-const feature = createAbstraction('feature', commonIndexTemplate)
-const entity = createAbstraction('entity', commonIndexTemplate)
+const appLayer = createAbstraction('app-layer', commonIndexTemplate())
+const widget = createAbstraction('widget', commonIndexTemplate())
+const feature = createAbstraction('feature', commonIndexTemplate())
+const entity = createAbstraction('entity', commonIndexTemplate())
 
 const app = abstraction('app', {
   children: {
