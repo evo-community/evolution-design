@@ -12,10 +12,10 @@ async function downloadFile(url: string, filePath: string) {
 }
 
 const rootDir = process.cwd()
-const filePath = path.join(rootDir, 'evo.config.new.ts')
+const filePath = path.join(rootDir, 'evo.config.ts')
 
 async function initializeProject(architecture: string) {
-const fileUrl = `https://raw.githubusercontent.com/Vsevolod-Rusinskiy/newartspace-admin/master/test-evo/${architecture}/evo.config.ts`
+  const fileUrl = `https://raw.githubusercontent.com/Vsevolod-Rusinskiy/newartspace-admin/master/test-evo/${architecture.toUpperCase()}/evo.config.ts`
   try {
     await downloadFile(fileUrl, filePath)
     console.log(`Файл конфигурации evo.config.ts для архитектуры ${architecture.toUpperCase()} успешно установлен в корневую директорию проекта.`)
