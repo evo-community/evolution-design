@@ -98,7 +98,7 @@
     "test:unit": "vitest --run",
     "vitest": "vitest",
     "evo": "tsx ./src/cli/index.ts",
-    "evo:init": "test command for cli"
+    "evo init fsd": "test command for cli"
   },
   "dependencies": {
     "c12": "^1.11.2",
@@ -113,7 +113,9 @@
     "immer": "^10.1.1",
     "install": "^0.13.0",
     "is-glob": "^4.0.3",
+    "lodash": "^4.17.21",
     "minimatch": "^10.0.1",
+    "node-fetch": "^3.3.2",
     "npm": "^10.8.3",
     "precinct": "^12.1.2",
     "prexit": "^2.3.0",
@@ -127,7 +129,9 @@
   "devDependencies": {
     "@antfu/eslint-config": "^3.3.2",
     "@types/is-glob": "^4.0.4",
+    "@types/lodash": "^4.17.13",
     "@types/node": "^22.5.4",
+    "@types/node-fetch": "^2.6.12",
     "bumpp": "^9.4.0",
     "eslint": "^9.10.0",
     "lint-staged": "^15.2.10",

@@ -49,7 +49,6 @@ const app = abstraction('app', {
   children: {
     '*': appLayer,
   },
-  rules: [restrictCrossImports()],
 })
 
 const pages = abstraction('pages', {
