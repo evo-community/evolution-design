@@ -15,7 +15,7 @@ const rootDir = process.cwd()
 const filePath = path.join(rootDir, 'evo.config.new.ts')
 
 async function initializeProject(architecture: string) {
-  const fileUrl = `https://raw.githubusercontent.com/evo-community/evolution-design/templates/${architecture}/evo.config.ts`
+  const fileUrl = `https://raw.githubusercontent.com/evo-community/tree/feature/cli/src/templates/${architecture}/evo.config.ts`
 
   try {
     await downloadFile(fileUrl, filePath)
