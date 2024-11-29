@@ -30,6 +30,8 @@ export function startServer({ configPath, watch }: LinterConfig) {
       console.log('Получены данные от watchFs:', data)
       if (data.vfs) {
         io.emit('fileChange', { vfs: data.vfs }) // Отправляем данные через WebSocket
+      } else {
+        console.error('Данные от watchFs не содержат vfs')
       }
     },
     error: (err) => {
