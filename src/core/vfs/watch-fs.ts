@@ -9,10 +9,14 @@ import { createVfsRoot } from './create-root'
 import { removeNode } from './remove-node'
 
 export function watchFs(path: Path, { onlyReady }: { onlyReady?: boolean } = {}) {
+  console.log('Запуск watchFs для пути:', path)
   const isIgnored$ = from(isGitIgnored({ cwd: path }))
 
   let vfs$ = isIgnored$.pipe(
-    switchMap(isIgnored => createWatcherObservable({ path, isIgnored })),
+    switchMap(isIgnored => {
+      console.log('isIgnored:', isIgnored)
+      return createWatcherObservable({ path, isIgnored })
+    }),
   )
 
   if (onlyReady) {
@@ -25,6 +29,7 @@ export function watchFs(path: Path, { onlyReady }: { onlyReady?: boolean } = {})
 function createWatcherObservable({ path, isIgnored }: { path: string, isIgnored: GlobbyFilterFunction }) {
   return new Observable<VfsEvents>((observer) => {
     let vfs = createVfsRoot(path)
+    console.log('Создан VFS:', vfs)
     const watcher = chokidar.watch(path, {
       ignored: path => path.split(sep).includes('node_modules') || isIgnored(path),
       ignoreInitial: false,
@@ -35,6 +40,7 @@ function createWatcherObservable({ path, isIgnored }: { path: string, isIgnored:
     })
 
     watcher.on('add', async (relativePath) => {
+      console.log('Файл добавлен:', relativePath)
       vfs = addFile(vfs, join(path, relativePath))
       observer.next({ type: 'add', vfs })
     })
@@ -59,6 +65,7 @@ function createWatcherObservable({ path, isIgnored }: { path: string, isIgnored:
     })
 
     watcher.on('ready', () => {
+      console.log('Watcher готов')
       observer.next({ type: 'ready', vfs })
     })
 
