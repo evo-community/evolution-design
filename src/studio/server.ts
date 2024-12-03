@@ -1,56 +1,52 @@
-import { debounceTime, Observable, switchMap } from 'rxjs';
-import { createServer } from 'node:http';
-import { resolve, dirname } from 'node:path';
-import express from 'express';
-import { Server as SocketIOServer } from 'socket.io';
-import { watchFs } from 'evolution-design/core';
+import { createServer } from 'node:http'
+import { dirname, resolve } from 'node:path'
+import process from 'node:process'
+import { watchFs } from 'evolution-design/core'
+import express from 'express'
+import { debounceTime, Observable, switchMap } from 'rxjs'
+import { Server as SocketIOServer } from 'socket.io'
 
 export interface ServerConfig {
-  configPath: string;
-  watch?: boolean;
+  configPath: string
+  watch?: boolean
 }
 
 export function startServer({ configPath, watch }: ServerConfig): Observable<any> {
-  const rootPath = resolve(dirname(configPath), './test');
-  const app = express();
-  const httpServer = createServer(app);
-  const io = new SocketIOServer(httpServer);
+  const rootPath = resolve(dirname(configPath), './test')
+  const app = express()
+  const httpServer = createServer(app)
+  const io = new SocketIOServer(httpServer)
+
+  app.use(express.static(`${process.cwd()}/src/studio`))
 
   return new Observable((observer) => {
     httpServer.listen(3000, () => {
-      console.log('Сервер запущен на порту 3000!');
-      observer.next({ message: 'Сервер запущен на порту 3000' });
-    });
+      observer.next({ message: 'Сервер запущен на порту 3000' })
+    })
 
     app.get('/api/fs', (req, res) => {
-      res.send('Подключитесь к WebSocket для получения событий');
-    });
+      res.sendFile(`${process.cwd()}/src/studio/index.html`)
+    })
 
     const fsSubscription = watchFs(rootPath, { onlyReady: !watch }).pipe(
       debounceTime(500),
       switchMap(({ vfs }) => {
-        console.log('Получены данные от файловой системы:', vfs);
-        io.emit('fileChange', { vfs: JSON.stringify(vfs) });
-        return [vfs];
-      })
+        io.emit('fileChange', { vfs })
+        return [vfs]
+      }),
     ).subscribe({
-      next: (data) => observer.next(data),
-      error: (err) => observer.error(err),
-    });
+      next: data => observer.next(data),
+      error: err => observer.error(err),
+    })
 
     io.on('connection', (socket) => {
-      console.log('Клиент подключен');
-
       socket.on('disconnect', () => {
-        console.log('Клиент отключен');
-      });
-    });
+      })
+    })
 
     return () => {
-      console.log('Остановка сервера и завершение потоков');
-      fsSubscription.unsubscribe();
-      httpServer.close();
-    };
-  });
+      fsSubscription.unsubscribe()
+      httpServer.close()
+    }
+  })
 }
-

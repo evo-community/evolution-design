@@ -25,18 +25,16 @@ export default defineCommand({
       onlyOne: true,
     })
       .pipe(
-        switchMap(({ configPath, config }) => {
-          console.log('Получена конфигурация:', { configPath, config })
-          return startServer({ configPath, config, watch })
+        switchMap(({ configPath }) => {
+          return startServer({ configPath, watch })
         }),
       )
       .subscribe({
-        next: (data) => {
-          console.log('Данные от сервера:', data)
+        next: () => {
         },
         error: (err) => {
           console.error('Ошибка при получении данных от сервера:', err)
-        }
+        },
       })
 
     prexit(() => subscription.unsubscribe())

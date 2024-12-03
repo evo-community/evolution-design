@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test</title>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+    <pre id="output"></pre>
+    <script>
+        const socket = io();
+
+        socket.on('connect', () => {
+            console.log('Подключено к WebSocket11');
+        });
+
+        socket.on('fileChange', (data) => {
+            console.log('Полученные данные:', data);
+            const output = document.getElementById('output');
+            const vfs = data.vfs 
+            output.textContent = JSON.stringify(vfs, null, 2); 
+            console.log('Получены обновленные данные о структуре файловой системы:', vfs);
+        });
+    </script>
+</body>
+</html>
+
