@@ -1,7 +1,7 @@
 import { createServer } from 'node:http'
 import { dirname, resolve } from 'node:path'
 import process from 'node:process'
-import { watchFs } from 'evolution-design/core'
+import { type EvolutionConfig, parseAbstractionInstance, parseDependenciesMap, watchFs } from 'evolution-design/core'
 import express from 'express'
 import { debounceTime, Observable, switchMap } from 'rxjs'
 import { Server as SocketIOServer } from 'socket.io'
@@ -9,9 +9,10 @@ import { Server as SocketIOServer } from 'socket.io'
 export interface ServerConfig {
   configPath: string
   watch?: boolean
+  config: EvolutionConfig
 }
 
-export function startServer({ configPath, watch }: ServerConfig): Observable<any> {
+export function startServer({ configPath, watch, config }: ServerConfig): Observable<any> {
   const rootPath = resolve(dirname(configPath), './test')
   const app = express()
   const httpServer = createServer(app)
@@ -30,9 +31,15 @@ export function startServer({ configPath, watch }: ServerConfig): Observable<any
 
     const fsSubscription = watchFs(rootPath, { onlyReady: !watch }).pipe(
       debounceTime(500),
-      switchMap(({ vfs }) => {
-        io.emit('fileChange', { vfs })
-        return [vfs]
+      switchMap(async ({ vfs }) => {
+        const parseNode = parseAbstractionInstance(config.root)
+        const dependenciesMap = await parseDependenciesMap(vfs)
+        io.emit('fileChange', { vfs, instance: parseNode(vfs), dependenciesMap })
+        return {
+          vfs,
+          instance: parseNode(vfs),
+          dependenciesMap,
+        }
       }),
     ).subscribe({
       next: data => observer.next(data),

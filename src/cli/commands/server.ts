@@ -25,8 +25,8 @@ export default defineCommand({
       onlyOne: true,
     })
       .pipe(
-        switchMap(({ configPath }) => {
-          return startServer({ configPath, watch })
+        switchMap(({ configPath, config }) => {
+          return startServer({ configPath, watch, config })
         }),
       )
       .subscribe({
