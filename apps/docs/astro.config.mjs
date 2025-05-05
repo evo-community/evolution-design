@@ -27,70 +27,55 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: 'Почему Evolution Design?',
+          label: 'Начало',
           translations: {
-            en: 'Why Evolution Design?',
+            en: 'Getting started',
           },
-          items: [
-            {
-              label: 'Проблема',
-              slug: 'why',
-              translations: {
-                en: 'Problem',
-              },
-            },
-            {
-              label: 'Решение',
-              slug: 'why/resolve',
-              translations: {
-                en: 'Problem resolve',
-              },
-            },
-          ],
+          slug: 'getting-started',
         },
         {
           label: 'Руководство',
           translations: {
-            en: 'Guide',
+            en: 'Handbook',
           },
           items: [
             {
-              label: 'Начало работы',
+              label: 'Быстрый старт',
               slug: 'guide',
               translations: {
-                en: 'Getting started',
-              },
-            },
-            {
-              label: 'Конфигурация',
-              slug: 'guide/config',
-              translations: {
-                en: 'Configuration',
-              },
-            },
-            {
-              label: 'Примеры',
-              slug: 'guide/examples',
-              translations: {
-                en: 'Examples',
+                en: 'Quick start',
               },
             },
           ],
         },
         {
-          label: 'Базовые архитектурные понятия',
+          label: 'Погружение',
           translations: {
-            en: 'Core architectural concepts',
+            en: 'Deep dive',
           },
           items: [
             {
-              label: 'Глоссарий',
-              slug: 'core-architectural-concepts',
+              label: 'Основные концепции',
+              slug: 'deep-dive',
               translations: {
-                en: 'Glossary',
+                en: 'Main concepts',
               },
             },
           ],
+        },
+        {
+          label: 'Паттерны',
+          translations: {
+            en: 'Patterns',
+          },
+          items: [],
+        },
+        {
+          label: 'Глоссарий',
+          translations: {
+            en: 'Terms',
+          },
+          items: [],
         },
       ],
     }),

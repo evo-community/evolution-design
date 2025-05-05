@@ -1,3 +1,8 @@
 import antfu from '@antfu/eslint-config'
 
-export default antfu()
+export default antfu({
+  ignores: [
+    '**/.astro',
+    // ...globs
+  ],
+})
