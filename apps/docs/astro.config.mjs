@@ -51,6 +51,13 @@ export default defineConfig({
                 en: 'Quick start',
               },
             },
+            {
+              label: 'Создание проекта на ED small',
+              slug: 'guide/ed-small',
+              translations: {
+                en: 'Creating a project on ED small',
+              },
+            },
           ],
         },
         {

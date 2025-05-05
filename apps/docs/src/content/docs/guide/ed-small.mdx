@@ -1,0 +1,246 @@
+---
+title: Создание проекта на ED small
+description: Создание проекта на ED small
+---
+
+import { FileTree } from "@astrojs/starlight/components";
+import { Aside } from "@astrojs/starlight/components";
+
+
+Как и было описано в базовом гайде, ED small предназначен для относительно небольших проектов.
+
+Очень приблизительный критерий, когда брать ED small:
+
+- До 12 человеко/месяцев разработки
+- До 1-2 человек фронтов
+
+<details>
+<summary>Про мифический человеко/месяц:</summary>
+
+Человеко/месяц — это единица измерения трудозатрат. Один человеко/месяц — это 160 часов работы.
+
+**Да, мы знаем, что это некорректная оценка, и у неё есть масса недостатков.** Её единственная цель здесь — помочь оценить **порядок сложности** проекта!
+
+</details>
+
+
+
+## Зачем нужен ED small?
+
+Многие скажут: **"Если проект маленький, то зачем там нужна архитектура?"**
+
+ED small спроектирован так, чтобы при минимальных затратах времени и усилий получить самые важные архитектурные преимущества.
+
+- **Стандартизация**: Возможность переиспользовать опыт разработки проектов под ED.
+- **Модульность**: Простота разработки независимых частей приложения.
+- **Расширяемость**: Легкость добавления новых возможностей.
+- **Надежность**: Минимальные архитектурные ограничения, которые делают изменения более предсказуемыми.
+- **Дальнейшее развитие**: Подготовка к переходу на более продвинутые архитектуры при росте проекта.
+
+## Начало работы с vite SPA 
+
+ED small подходит для работы с любыми фреймворками и технологиями. В этом гайде будет описано использование в наиболее популярном формате. **React + Vite + SPA**.
+
+Особенности работы с другими технологиями будут описаны в отдельных гайдах.
+
+### Базовая структура проекта
+[Материалы (1-init)](https://github.com/clean-frontend/miro-materials/tree/main/parts/1-init)
+<details>
+<summary>Видео: Базовая структура проекта</summary>
+<iframe 
+  width="100%" 
+  style="aspect-ratio: 16/9;"
+  src="https://www.youtube.com/embed/cRzcnKxmIZo?start=321&end=816" 
+  title="Базовая структура проекта" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+></iframe>
+</details>
+
+---
+
+### Настройка eslint
+[Материалы (2-linter)](https://github.com/clean-frontend/miro-materials/tree/main/parts/2-linter)
+<details>
+<summary>Видео: Настройка eslint</summary>
+<iframe 
+  width="100%" 
+  style="aspect-ratio: 16/9;"
+  src="https://www.youtube.com/embed/cRzcnKxmIZo?start=816" 
+  title="Настройка eslint" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+></iframe>
+</details>
+
+---
+
+### react-router-dom
+[Материалы (3-router)](https://github.com/clean-frontend/miro-materials/tree/main/parts/3-router)
+<details>
+<summary>Видео: react-router-dom</summary>
+<iframe 
+  width="100%" 
+  style="aspect-ratio: 16/9;"
+  src="https://www.youtube.com/embed/cRzcnKxmIZo?start=1727" 
+  title="react-router-dom" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+></iframe>
+</details>
+
+---
+
+### config
+[Материалы (4-config)](https://github.com/clean-frontend/miro-materials/tree/main/parts/4-config)
+<details>
+<summary>Видео: config</summary>
+<iframe 
+  width="100%" 
+  style="aspect-ratio: 16/9;"
+  src="https://www.youtube.com/embed/cRzcnKxmIZo?start=2836" 
+  title="config" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+></iframe>
+</details>
+
+---
+
+### api, openapi-typescript, react-query, msw
+[Материалы (5-api)](https://github.com/clean-frontend/miro-materials/tree/main/parts/5-api)
+<details>
+<summary>Видео: api, openapi-typescript, react-query, msw</summary>
+<iframe 
+  width="100%" 
+  style="aspect-ratio: 16/9;"
+  src="https://www.youtube.com/embed/cRzcnKxmIZo?start=3227" 
+  title="api, openapi-typescript, react-query, msw" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+></iframe>
+</details>
+
+---
+
+### shadcn, tailwindcss
+[Материалы (6-shadcn)](https://github.com/clean-frontend/miro-materials/tree/main/parts/6-shadcn)
+<details>
+<summary>Видео: shadcn, tailwindcss</summary>
+<iframe 
+  width="100%" 
+  style="aspect-ratio: 16/9;"
+  src="https://www.youtube.com/embed/cRzcnKxmIZo?start=5017" 
+  title="shadcn, tailwindcss" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+></iframe>
+</details>
+
+---
+
+### Пример реализации `Grouped module`
+[Материалы (7-auth-pages)](https://github.com/clean-frontend/miro-materials/tree/main/parts/7-auth-pages)
+<details>
+<summary>Видео: Пример реализации Grouped module</summary>
+<iframe 
+  width="100%" 
+  style="aspect-ratio: 16/9;"
+  src="https://www.youtube.com/embed/cRzcnKxmIZo?start=5806" 
+  title="Форма входа и регистрации" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+></iframe>
+</details>
+
+---
+
+### Работа с сессией (access / refresh token)
+[Материалы (8-session)](https://github.com/clean-frontend/miro-materials/tree/main/parts/8-session)
+<details>
+<summary>Видео: Работа с сессией (access / refresh token)</summary>
+<iframe 
+  width="100%" 
+  style="aspect-ratio: 16/9;"
+  src="https://www.youtube.com/embed/cRzcnKxmIZo?start=9645" 
+  title="access / refresh token" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+></iframe>
+</details>
+
+---
+
+### Пример реализации `Module with compose` (логика)
+[Материалы (9-boards-list)](https://github.com/clean-frontend/miro-materials/tree/main/parts/9-boards-list)
+<details>
+<summary>Видео: Пример реализации Module with compose (логика)</summary>
+<iframe 
+  width="100%" 
+  style="aspect-ratio: 16/9;"
+  src="https://www.youtube.com/embed/cRzcnKxmIZo?start=13285" 
+  title="Рефакторинг логики списка досок" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+></iframe>
+</details>
+
+---
+
+### Пример реализации `Module with compose` (отображение)
+[Материалы (9-boards-list)](https://github.com/clean-frontend/miro-materials/tree/main/parts/9-boards-list)
+<details>
+<summary>Видео: Пример реализации Module with compose (отображение)</summary>
+<iframe 
+  width="100%" 
+  style="aspect-ratio: 16/9;"
+  src="https://www.youtube.com/embed/cRzcnKxmIZo?start=15953" 
+  title="Рефакторинг отображения списка и добавление гибкости" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+></iframe>
+</details>
+
+---
+
+### Пример реализации Flat module и взаимодействия модулей
+[Материалы (9-boards-list)](https://github.com/clean-frontend/miro-materials/tree/main/parts/9-boards-list)
+<details>
+<summary>Видео: Пример реализации Flat module и взаимодействия модулей</summary>
+<iframe 
+  width="100%" 
+  style="aspect-ratio: 16/9;"
+  src="https://www.youtube.com/embed/cRzcnKxmIZo?start=20951" 
+  title="Пример взаимодействия модуля templates с модулем boards-list" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen
+></iframe>
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
