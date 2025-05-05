@@ -1,29 +1,29 @@
 /* Dark mode colors. */
 :root {
-	--sl-color-accent-low: #072d00;
-	--sl-color-accent: #247f00;
-	--sl-color-accent-high: #aad7a0;
+	--sl-color-accent-low: #134e4a;    /* teal-900 */
+	--sl-color-accent: #14b8a6;        /* teal-500 (базовый) */
+	--sl-color-accent-high: oklch(98.4% 0.014 180.72);   /* teal-300 */
 	--sl-color-white: #ffffff;
-	--sl-color-gray-1: #eaf0e8;
-	--sl-color-gray-2: #c5cdc3;
-	--sl-color-gray-3: #99a796;
-	--sl-color-gray-4: #4f5c4d;
-	--sl-color-gray-5: #303c2d;
-	--sl-color-gray-6: #1f2a1c;
-	--sl-color-black: #151a13;
+	--sl-color-gray-1: #f1f5f9;        /* slate-50 */
+	--sl-color-gray-2: #cbd5e1;        /* slate-200 */
+	--sl-color-gray-3: #94a3b8;        /* slate-400 */
+	--sl-color-gray-4: #64748b;        /* slate-500 */
+	--sl-color-gray-5: #334155;        /* slate-700 */
+	--sl-color-gray-6: #1e293b;        /* slate-800 */
+	--sl-color-black: #0f172a;         /* slate-900 */
 }
 /* Light mode colors. */
 :root[data-theme='light'] {
-	--sl-color-accent-low: #c0e2b8;
-	--sl-color-accent: #165800;
-	--sl-color-accent-high: #0d3e00;
-	--sl-color-white: #151a13;
-	--sl-color-gray-1: #1f2a1c;
-	--sl-color-gray-2: #303c2d;
-	--sl-color-gray-3: #4f5c4d;
-	--sl-color-gray-4: #82907f;
-	--sl-color-gray-5: #bdc4bb;
-	--sl-color-gray-6: #eaf0e8;
-	--sl-color-gray-7: #f4f7f3;
-	--sl-color-black: #ffffff;
+	--sl-color-accent-low: #99f6e4;    /* teal-200 */
+	--sl-color-accent: #134e4a;        /* teal-900 */
+	--sl-color-accent-high: #134e4a;   /* teal-900 */
+	--sl-color-white: #0f172a;         /* slate-900 */
+	--sl-color-gray-1: #334155;        /* slate-700 (было 1e293b) */
+	--sl-color-gray-2: #475569;        /* slate-600 (было 334155) */
+	--sl-color-gray-3: #64748b;        /* slate-500 */
+	--sl-color-gray-4: #94a3b8;        /* slate-400 */
+	--sl-color-gray-5: #cbd5e1;        /* slate-200 */
+	--sl-color-gray-6: #e2e8f0;        /* slate-100 (было f1f5f9) */
+	--sl-color-gray-7: #f1f5f9;        /* slate-50 (было f8fafc) */
+	--sl-color-black: #ffffffe7;
 }

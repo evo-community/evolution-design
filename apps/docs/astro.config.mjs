@@ -7,9 +7,14 @@ export default defineConfig({
   base: '/',
   integrations: [
     starlight({
-      title: 'EVOLUTION DESIGN',
+      title: 'Evolution Design',
+      logo: {
+        src: './src/assets/logo.png',
+        alt: 'ED',
+      },
       social: {
         github: 'https://github.com/evo-community/evolution-design',
+        telegram: 'https://t.me/+VugvWY1dtdRhM2Uy',
       },
       customCss: [
         // Relative path to your custom CSS file
