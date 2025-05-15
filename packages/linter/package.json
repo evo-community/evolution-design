@@ -13,6 +13,9 @@
   "bin": {
     "ed-lint": "./dist/index.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "dist"
   ],
