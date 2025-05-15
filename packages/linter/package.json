@@ -1,0 +1,28 @@
+{
+  "name": "@evod/linter",
+  "version": "0.1.1",
+  "description": "Evolution Design linter CLI tool",
+  "author": "Evolution Design Team",
+  "license": "MIT",
+  "keywords": [
+    "evolution-design",
+    "linter",
+    "cli"
+  ],
+  "main": "dist/index.js",
+  "bin": {
+    "ed-lint": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "cargo build --release && node scripts/build.js",
+    "release": "pnpm run test && bumpp -r && pnpm publish",
+    "test": "cargo test",
+    "prepublishOnly": "pnpm run build"
+  },
+  "devDependencies": {
+    "fs-extra": "^11.2.0"
+  }
+}

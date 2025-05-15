@@ -45,5 +45,9 @@
     "scss",
     "pcss",
     "postcss"
+  ],
+
+  "rust-analyzer.linkedProjects": [
+    "packages/linter/Cargo.toml"
   ]
 }
