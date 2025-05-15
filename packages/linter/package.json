@@ -1,5 +1,5 @@
 {
-  "name": "@evod/linter",
+  "name": "@evod/lint",
   "version": "0.1.2",
   "description": "Evolution Design linter CLI tool",
   "author": "Evolution Design Team",
@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "cargo build --release && node scripts/build.js",
-    "release": "pnpm run test && bumpp -r && pnpm publish",
+    "release": "pnpm run test && pnpm publish",
     "test": "cargo test",
     "prepublishOnly": "pnpm run build"
   },
