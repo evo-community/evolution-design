@@ -1,0 +1,1 @@
+export { lint } from './server'

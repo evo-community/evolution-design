@@ -1,13 +1,7 @@
 import { basename, dirname } from 'node:path'
 import { camelCase, capitalize } from 'lodash'
 import { abstraction, defineConfig } from './src'
-import {
-  dependenciesDirection,
-  noUnabstractionFiles,
-  publicAbstraction,
-  requiredChildren,
-  restrictCrossImports,
-} from './src/rules'
+import { dependenciesDirection, noUnabstractionFiles, publicAbstraction, requiredChildren, restrictCrossImports } from './src/rules'
 
 const pageTemplate = `
 export function Page() {
@@ -16,9 +10,7 @@ export function Page() {
 `
 
 const pageIndexTemplate = function (path: string) {
-  return `export { Page as ${capitalize(
-    camelCase(basename(dirname(path)))
-  )}Page} from './page'`
+  return `export { Page as ${capitalize(camelCase(basename(dirname(path))))}Page} from './page'`
 }
 
 const createAbstraction = function (name: string, template: string) {
@@ -90,18 +82,7 @@ const root = abstraction('root', {
     entities,
     shared,
   },
-  rules: [
-    dependenciesDirection([
-      'app',
-      'pages',
-      'widgets',
-      'features',
-      'entities',
-      'shared',
-    ]),
-    noUnabstractionFiles(),
-    requiredChildren(),
-  ],
+  rules: [dependenciesDirection(['app', 'pages', 'widgets', 'features', 'entities', 'shared']), noUnabstractionFiles(), requiredChildren()],
 })
 
 export default defineConfig({

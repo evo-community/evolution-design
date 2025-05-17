@@ -1,8 +1,10 @@
 import type { CommandDef } from 'citty'
 
+
 const _rDefault = (r: any) => (r.default || r) as Promise<CommandDef>
 
 export const commands = {
   init: () => import('./init').then(_rDefault),
   lint: () => import('./lint').then(_rDefault),
+  server: () => import('./server').then(_rDefault),
 } as const
