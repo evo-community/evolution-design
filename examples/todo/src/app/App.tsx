@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import { TodoList } from '@/features/todos'
+import { TodoList } from "@/features/todos";
 
 export default function Component() {
   return (
@@ -10,5 +10,5 @@ export default function Component() {
       </header>
       <TodoList />
     </div>
-  )
+  );
 }

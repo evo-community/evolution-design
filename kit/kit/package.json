@@ -1,0 +1,35 @@
+{
+  "name": "@evod/kit",
+  "private": true,
+  "version": "0.0.9",
+  "type": "module",
+  "description": "Utility kit for Evolution Design",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rimraf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": ">=5",
+    "tsup": "latest",
+    "rimraf": "latest"
+  },
+  "peerDependencies": {
+    "typescript": ">=5"
+  }
+}

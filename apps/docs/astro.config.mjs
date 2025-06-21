@@ -1,95 +1,95 @@
 // @ts-check
-import starlight from '@astrojs/starlight'
-import { defineConfig } from 'astro/config'
+import starlight from "@astrojs/starlight";
+import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-  base: '/',
+  base: "/",
   integrations: [
     starlight({
-      title: 'Evolution Design',
+      title: "Evolution Design",
       logo: {
-        src: './src/assets/logo.png',
-        alt: 'ED',
+        src: "./src/assets/logo.png",
+        alt: "ED",
       },
       social: {
-        github: 'https://github.com/evo-community/evolution-design',
-        telegram: 'https://t.me/+VugvWY1dtdRhM2Uy',
+        github: "https://github.com/evo-community/evolution-design",
+        telegram: "https://t.me/+VugvWY1dtdRhM2Uy",
       },
       customCss: [
         // Relative path to your custom CSS file
-        './src/styles/custom.css',
+        "./src/styles/custom.css",
       ],
-      defaultLocale: 'root',
+      defaultLocale: "root",
       locales: {
         root: {
-          label: 'Russian',
-          lang: 'ru',
+          label: "Russian",
+          lang: "ru",
         },
         en: {
-          label: 'English',
+          label: "English",
         },
       },
       sidebar: [
         {
-          label: 'Начало',
+          label: "Начало",
           translations: {
-            en: 'Getting started',
+            en: "Getting started",
           },
-          slug: 'getting-started',
+          slug: "getting-started",
         },
         {
-          label: 'Руководство',
+          label: "Руководство",
           translations: {
-            en: 'Handbook',
+            en: "Handbook",
           },
           items: [
             {
-              label: 'Быстрый старт',
-              slug: 'guide',
+              label: "Быстрый старт",
+              slug: "guide",
               translations: {
-                en: 'Quick start',
+                en: "Quick start",
               },
             },
             {
-              label: 'Создание проекта на ED small',
-              slug: 'guide/ed-small',
+              label: "Создание проекта на ED small",
+              slug: "guide/ed-small",
               translations: {
-                en: 'Creating a project on ED small',
+                en: "Creating a project on ED small",
               },
             },
           ],
         },
         {
-          label: 'Погружение',
+          label: "Погружение",
           translations: {
-            en: 'Deep dive',
+            en: "Deep dive",
           },
           items: [
             {
-              label: 'Основные концепции',
-              slug: 'deep-dive',
+              label: "Основные концепции",
+              slug: "deep-dive",
               translations: {
-                en: 'Main concepts',
+                en: "Main concepts",
               },
             },
           ],
         },
         {
-          label: 'Паттерны',
+          label: "Паттерны",
           translations: {
-            en: 'Patterns',
+            en: "Patterns",
           },
           items: [],
         },
         {
-          label: 'Глоссарий',
+          label: "Глоссарий",
           translations: {
-            en: 'Terms',
+            en: "Terms",
           },
           items: [],
         },
       ],
     }),
   ],
-})
+});
