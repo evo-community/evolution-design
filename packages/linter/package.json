@@ -1,28 +1,68 @@
 {
-  "name": "@evod/linter",
-  "version": "0.1.2",
-  "description": "Evolution Design linter CLI tool",
-  "author": "Evolution Design Team",
+  "name": "edlint",
+  "version": "0.0.9",
+  "type": "module",
+  "description": "Linter engine for Evolution Design architecture",
   "license": "MIT",
-  "keywords": [
-    "evolution-design",
-    "linter",
-    "cli"
-  ],
-  "main": "dist/index.js",
-  "bin": {
-    "ed-lint": "./dist/index.js"
+  "publishConfig": {
+    "access": "public"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evolution-design/evolution-design.git",
+    "directory": "packages/linter"
+  },
+  "homepage": "https://github.com/evolution-design/evolution-design#readme",
+  "bugs": {
+    "url": "https://github.com/evolution-design/evolution-design/issues"
+  },
+  "keywords": [
+    "linter",
+    "cli",
+    "typescript",
+    "evolution-design",
+    "architecture",
+    "code-quality"
+  ],
+  "bin": {
+    "edlint": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "cargo build --release && node scripts/build.js",
-    "release": "pnpm run test && bumpp -r && pnpm publish",
-    "test": "cargo test",
-    "prepublishOnly": "pnpm run build"
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rimraf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@evod/core": "*",
+    "chalk": "^5.3.0",
+    "citty": "^0.1.6",
+    "figures": "^6.1.0",
+    "prexit": "^2.3.0",
+    "rxjs": "^7.8.1",
+    "terminal-link": "^3.0.0",
+    "zod": "^3.23.8",
+    "zod-validation-error": "^3.3.1"
   },
   "devDependencies": {
-    "fs-extra": "^11.2.0"
+    "rimraf": "latest",
+    "tsup": "latest",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "typescript": ">=5"
   }
 }

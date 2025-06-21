@@ -1,0 +1,68 @@
+{
+  "name": "@evod/core",
+  "version": "0.0.9",
+  "type": "module",
+  "description": "Core functionality for Evolution Design architecture linter",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evolution-design/evolution-design.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/evolution-design/evolution-design#readme",
+  "bugs": {
+    "url": "https://github.com/evolution-design/evolution-design/issues"
+  },
+  "keywords": [
+    "architecture",
+    "linter",
+    "typescript",
+    "evolution-design",
+    "code-quality"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rimraf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@evod/kit": "*",
+    "c12": "^1.11.2",
+    "chokidar": "^3.6.0",
+    "globby": "^14.0.2",
+    "immer": "^10.1.1",
+    "is-glob": "^4.0.3",
+    "minimatch": "^10.0.1",
+    "precinct": "^12.1.2",
+    "rxjs": "^7.8.1",
+    "tsconfck": "^3.1.3",
+    "zod": "^3.23.8",
+    "zod-validation-error": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/is-glob": "^4.0.4",
+    "typescript": "^5.8.3",
+    "tsup": "latest",
+    "rimraf": "latest"
+  },
+  "peerDependencies": {
+    "typescript": ">=5"
+  }
+}

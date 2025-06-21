@@ -1,19 +1,19 @@
-import { Button } from '@/shared/ui/shadcn/button'
+import { Button } from "@/shared/ui/shadcn/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from '@/shared/ui/shadcn/dropdown-menu'
-import { ArrowUpDownIcon } from 'lucide-react'
+} from "@/shared/ui/shadcn/dropdown-menu";
+import { ArrowUpDownIcon } from "lucide-react";
 
 export function SortTodos({
   sortBy,
   setSortBy,
 }: {
-  sortBy: string
-  setSortBy: (sort: string) => void
+  sortBy: string;
+  setSortBy: (sort: string) => void;
 }) {
   return (
     <DropdownMenu>
@@ -32,5 +32,5 @@ export function SortTodos({
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

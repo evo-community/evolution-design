@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { ReactNode } from "react";
 
 export function TodoListLayout({
   searchSlot,
@@ -6,10 +6,10 @@ export function TodoListLayout({
   sortSlot,
   addFormSlot,
 }: {
-  searchSlot: ReactNode
-  sortSlot: ReactNode
-  todoListSlot: ReactNode
-  addFormSlot: ReactNode
+  searchSlot: ReactNode;
+  sortSlot: ReactNode;
+  todoListSlot: ReactNode;
+  addFormSlot: ReactNode;
 }) {
   return (
     <div className="flex-1 p-6">
@@ -20,5 +20,5 @@ export function TodoListLayout({
       </div>
       <div className="space-y-2">{todoListSlot}</div>
     </div>
-  )
+  );
 }

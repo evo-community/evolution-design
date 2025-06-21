@@ -23,15 +23,15 @@ description: Глоссарий
 
 ```javascript
 // Состояние
-let state = 1
+let state = 1;
 
 function multiple() {
   // Промежуточные данные
-  let tempState = state
+  let tempState = state;
   for (let i = state; i < state * 2; i++) {
-    tempState += 1
+    tempState += 1;
   }
-  state = tempState
+  state = tempState;
 }
 ```
 
@@ -45,11 +45,11 @@ function multiple() {
 const user = {
   id: 1,
   age: 14,
-}
+};
 
 const adult_users = {
   1: false,
-}
+};
 ```
 
 В этом примере переменные `user` и `adult_users` представляют собой дублирование состояния. Хотя они содержат разные данные, обе переменные дают информацию о том, является ли пользователь совершеннолетним. Переменная `user` хранит возраст, а `adult_users` хранит булевое значение, указывающее на совершеннолетие. Оба состояния могут быть использованы для определения одного и того же факта, что приводит к дублированию информации.
@@ -65,16 +65,16 @@ const adult_users = {
 Пример кэша:
 
 ```javascript
-const [users, setUsers] = useState()
+const [users, setUsers] = useState();
 
 useEffect(() => {
-  fetch('http://localhost:3000/users')
-    .then(r => r.json())
-    .then(setUsers)
-}, [])
+  fetch("http://localhost:3000/users")
+    .then((r) => r.json())
+    .then(setUsers);
+}, []);
 
 function getUserById(id) {
-  return users.find(user => user.id === id)
+  return users.find((user) => user.id === id);
 }
 ```
 

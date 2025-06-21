@@ -1,0 +1,10 @@
+{
+  "name": "@evod/tsconfig",
+  "private": true,
+  "version": "0.0.9",
+  "description": "Shared TypeScript configuration for Evolution Design packages",
+  "license": "MIT",
+  "files": [
+    "*.json"
+  ]
+}
