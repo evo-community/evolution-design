@@ -19,6 +19,21 @@ jobs:
       IMAGE: paromov.registry.twcstorage.ru/community/ed-docs
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      # apps/docs is a workspace: install and build from the root lockfile.
+      - run: npm ci
+      - run: npx turbo run build --filter=@evod/docs
+      - name: runtime Dockerfile
+        run: |
+          cat > "$RUNNER_TEMP/docs.Dockerfile" <<'EOF'
+          FROM nginx:alpine
+          COPY nginx/nginx.conf /etc/nginx/nginx.conf
+          COPY dist /usr/share/nginx/html
+          EXPOSE 8080
+          EOF
       - uses: docker/setup-buildx-action@v3
       - uses: docker/login-action@v3
         with:
@@ -30,6 +45,7 @@ jobs:
       - uses: docker/build-push-action@v6
         with:
           context: apps/docs
+          file: ${{ runner.temp }}/docs.Dockerfile
           push: true
           tags: ${{ env.IMAGE }}:${{ steps.tag.outputs.tag }}
           cache-from: type=gha
